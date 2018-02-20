@@ -92,7 +92,8 @@ public class Robot extends IterativeRobot {
             sides[i] = Side.decode(str.charAt(i));
         }
 
-        Procedure procedure = this.chooser.getSelected();
+//        Procedure procedure = this.chooser.getSelected();
+        Procedure procedure = new Turn90();
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         

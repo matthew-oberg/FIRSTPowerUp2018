@@ -41,7 +41,7 @@ public class TurnAction implements Action {
             double value = controller.getDelta();
             value = Math.abs(value) < 0.5 ? Math.signum(value) * 0.5 : value;
 
-            this.driveBase.doThrottle(Oi.sigl() * value, Oi.sigr() * value);
+            this.driveBase.doThrottle(-1 * Oi.sigl() * value, Oi.sigr() * value);
         }
         this.driveBase.doThrottle(0, 0);
         controller.finish();
