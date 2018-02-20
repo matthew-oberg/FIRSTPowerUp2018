@@ -53,10 +53,10 @@ public class MoveCommand extends SingleSubsystemCmd<DriveBaseSubsystem> {
 
     @Override
     protected void execute() {
-        if (!Robot.isThrottleMode) {
-        	this.subsystem.doThrottle(getLeft(), getRight());
+        if (Robot.isThrottleMode) {
+        	this.subsystem.doThrottle(getLeft(), -getLeft());
         } else {
-        	this.subsystem.doThrottle(getLeft(), getLeft());
+        	this.subsystem.doThrottle(getLeft(), getRight());
         }
     }
 
