@@ -27,7 +27,7 @@ public class TurnCtl implements PIDOutput {
     private TurnCtl() {
         this.dev = new AHRS(SPI.Port.kMXP);
 
-        PIDController controller = new PIDController(.01, 0, 0, 0, this.dev, this);
+        PIDController controller = new PIDController(.013, 0, 0, 0, this.dev, this);
         controller.setInputRange(-180, 180);
         controller.setOutputRange(-1, 1);
         controller.setAbsoluteTolerance(1);
@@ -55,6 +55,12 @@ public class TurnCtl implements PIDOutput {
         return this.dev.getYaw();
     }
 
+    public void reset() {
+    	this.dev.zeroYaw();
+        while (this.dev.isCalibrating() ||
+        		!this.dev.isConnected());
+    }
+    
     /**
      * Begins the PID procedure. Must be placed before a
      * polling loop in order to cause the controller to
@@ -65,9 +71,15 @@ public class TurnCtl implements PIDOutput {
      */
     public void begin(double delta) {
         if (!this.isTurning) {
-            this.dev.zeroYaw();
-            while (Math.abs(this.dev.getYaw()) < 0.2);
-
+            delta = this.getYaw() + delta;
+            if (delta > 180) {
+            	delta = 360 - delta;
+            }
+            
+            if (delta < -180) {
+            	delta = 360 + delta;
+            }
+            
             this.isTurning = true;
             this.controller.setSetpoint(delta);
             this.throttleDelta = 0;

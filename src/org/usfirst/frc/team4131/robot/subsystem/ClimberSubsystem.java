@@ -34,16 +34,16 @@ public class ClimberSubsystem extends Subsystem {
      * up the pull-up bar.
      */
     public void climb() {
-        this.one.set(ControlMode.PercentOutput, 0.75);
-        this.two.set(ControlMode.PercentOutput, 0.75);
+        this.one.set(ControlMode.PercentOutput, 1);
+        this.two.set(ControlMode.PercentOutput, 1);
     }
 
     /**
      * Lowers the elevator.
      */
     public void descend() {
-        this.one.set(ControlMode.PercentOutput, -0.5);
-        this.two.set(ControlMode.PercentOutput, -0.5);
+        this.one.set(ControlMode.PercentOutput, -0.75);
+        this.two.set(ControlMode.PercentOutput, -0.75);
     }
 
     /**

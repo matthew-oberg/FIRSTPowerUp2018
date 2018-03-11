@@ -21,7 +21,7 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * commence
      */
     private static boolean shouldClimb() {
-        return Oi.CLIMB.get();
+        return Oi.LOWERCLIMBER.get();
     }
 
     /**
@@ -32,7 +32,7 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * lower itself
      */
     private static boolean shouldDescend() {
-        return Oi.DESCEND.get();
+        return Oi.RAISECLIMBER.get();
     }
 
     @Override

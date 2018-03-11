@@ -17,6 +17,7 @@ import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.auto.Procedure;
 import org.usfirst.frc.team4131.robot.auto.Side;
 import org.usfirst.frc.team4131.robot.auto.procedure.*;
+import org.usfirst.frc.team4131.robot.ctl.TurnCtl;
 import org.usfirst.frc.team4131.robot.subsystem.*;
 
 import java.util.ArrayList;
@@ -40,14 +41,15 @@ public class Robot extends IterativeRobot {
     public static boolean isThrottleMode;
     private static int round;
 
+ 
     // Auton chooser
     private final SendableChooser<Procedure> chooser = new SendableChooser<>();
 
     // Limit Switches
-    private final DigitalInput topClimberSwitch = new DigitalInput(1);
-    private final DigitalInput bottomClimberSwitch = new DigitalInput(0);
-    private final DigitalInput topElevatorSwitch = new DigitalInput(3);
-    private final DigitalInput bottomElevatorSwitch = new DigitalInput(2);
+    private final DigitalInput topClimberSwitch = new DigitalInput(2);
+    private final DigitalInput bottomClimberSwitch = new DigitalInput(3);
+    private final DigitalInput topElevatorSwitch = new DigitalInput(1);
+    private final DigitalInput bottomElevatorSwitch = new DigitalInput(0);
 
     // Subsystem stuff
     private SubsystemProvider provider;
@@ -61,10 +63,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void robotInit() {
+    	TurnCtl.getInstance().reset();
+    	
         // Init subsystems
         this.provider = new SubsystemProvider(new DriveBaseSubsystem(),
                 new ClawSubsystem(), new ClimberSubsystem(), new ElevatorSubsystem());
 
+        
         // Init camera
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
@@ -75,24 +80,30 @@ public class Robot extends IterativeRobot {
 
         // Display auto procedures on dashboard
         this.chooser.addObject("Encoder Calibration", new EncoderCalibration());
-        this.chooser.addObject("DS2ToSwitch", new DriverStationToSwitch());
+        this.chooser.addObject("DS2ToSwitch", new DriverStation2ToSwitch());
         this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());
         SmartDashboard.putData("Auto mode", this.chooser);
+        
+        provider.getClaw().armUp();
+        provider.getClaw().clamp();
     }
 
     @Override
     public void autonomousInit() {
+    	
         String str = "";
+        
         while (str.length() != 3) {
             str = DriverStation.getInstance().getGameSpecificMessage();
-        }
+        }                                                               
         Side[] sides = new Side[str.length()];
         for (int i = 0, s = str.length(); i < s; i++) {
             sides[i] = Side.decode(str.charAt(i));
         }
 
-        Procedure procedure = this.chooser.getSelected();
+//TODO fix smartdashboard        Procedure procedure = this.chooser.getSelected();
+        Procedure procedure = new LeftRightBaseLine();
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         
@@ -104,14 +115,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
+        isClimberTop = this.topClimberSwitch.get();
+        isClimberBottom = this.bottomClimberSwitch.get();
+        isElevatorTop = this.topElevatorSwitch.get();
+        isElevatorBottom = this.bottomElevatorSwitch.get();
     }
 
     // ----------------------------------------------------
-
-    @Override
-    public void teleopInit() {
-        this.provider.getDriveBase().prepareTeleop();
-    }
 
     @Override
     public void teleopPeriodic() {
@@ -126,8 +136,9 @@ public class Robot extends IterativeRobot {
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
       
+        
         // Throttle Mode
-        isThrottleMode = Oi.THROTTLE_MODE.get();
+        //isThrottleMode = Oi.THROTTLE_MODE.get();
         
         // Inverting controls
         isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();

@@ -15,7 +15,7 @@ public class DistanceMoveAction implements Action {
      * The number of polls in loop to reasonably declare
      * PID victory
      */
-    private static final int V_GRANULARITY = 500;
+    private static final int V_GRANULARITY = 250;
 
     /** The drive base used to move the robot */
     private final DriveBaseSubsystem driveBase;
