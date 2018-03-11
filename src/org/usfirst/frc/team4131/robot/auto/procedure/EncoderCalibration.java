@@ -26,9 +26,9 @@ public class EncoderCalibration implements Procedure {
             DriveBaseSubsystem base = provider.getDriveBase();
             base.reset();
 
-            while (base.getLeftDist() < dist) {
+            while (base.getDist() < dist) {
                 base.doThrottle(speed, 0);
-                Robot.debug(() -> String.valueOf(base.getLeftDist()));
+                Robot.debug(() -> String.valueOf(base.getDist()));
             }
 
             base.doThrottle(0, 0);
@@ -38,7 +38,7 @@ public class EncoderCalibration implements Procedure {
                 e.printStackTrace();
             }
 
-            System.out.println("FINAL LEFT: " + base.getLeftDist());
+            System.out.println("FINAL LEFT: " + base.getDist());
         });
     }
 }

@@ -28,9 +28,9 @@ public class MoveCommand extends SingleSubsystemCmd<DriveBaseSubsystem> {
      */
     private static double getLeft() {
         if (Robot.isInverted) {
-            return Oi.R_JOYSTICK.getRawAxis(1);
+            return -Oi.R_JOYSTICK.getRawAxis(1);
         } else {
-            return -Oi.L_JOYSTICK.getRawAxis(1);
+            return Oi.L_JOYSTICK.getRawAxis(1);
         }
     }
 
@@ -54,7 +54,7 @@ public class MoveCommand extends SingleSubsystemCmd<DriveBaseSubsystem> {
     @Override
     protected void execute() {
         if (Robot.isThrottleMode) {
-        	this.subsystem.doThrottle(getLeft(), -getLeft());
+        	this.subsystem.doThrottle(getLeft(), getLeft());
         } else {
         	this.subsystem.doThrottle(getLeft(), getRight());
         }

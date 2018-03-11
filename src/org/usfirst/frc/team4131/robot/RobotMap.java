@@ -33,13 +33,16 @@ public final class RobotMap {
     public static final int C2 = 6;
 
     // Claw elevator motor
-    public static final int E = 0;
+    public static final int E = 7;
 
     // Pneumatics
+    public static final int PUSHERONE = 2;
+    public static final int PUSHERTWO = 3;
     public static final int CLAWONE = 5;
     public static final int CLAWTWO = 4;
     public static final int ARMONE = 6;
     public static final int ARMTWO = 7;
+    
     
     private RobotMap() { // Prevent instantiation
     }

@@ -5,37 +5,35 @@ import org.usfirst.frc.team4131.robot.subsystem.ClawSubsystem;
 import org.usfirst.frc.team4131.robot.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team4131.robot.subsystem.ElevatorSubsystem;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class ElevatorAndClimberAction implements Action{
 
-	ClimberSubsystem climber = new ClimberSubsystem();
-	ElevatorSubsystem elevator = new ElevatorSubsystem();
-	ClawSubsystem claw = new ClawSubsystem();
+	ClimberSubsystem climber;
+	ElevatorSubsystem elevator;
+	
+	private boolean elevator2 = false;
+	private boolean climber2 = false;
+	
+	
+	public ElevatorAndClimberAction(ClimberSubsystem climber, ElevatorSubsystem elevator, boolean climber2, boolean elevator2) {
+		this.climber = climber;
+		this.elevator = elevator;
+		
+		this.elevator2 = elevator2;
+		this.climber2 = climber2;
+	}
 	
 	@Override
 	public void doAction() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void elevator() {
-		
-		elevator.goToTop();
-	}
-	
-	public void climber() {
-		
-		climber.goToTop();
-	}
-	
-	public void release(int time) {
-		for (int i = 0; i < time; i++) {
-			claw.release();
-		}
-	}
-	
-	public void raise(int time) {
-		for (int i = 0; i < time; i++) {
-			claw.raise();
+		if (elevator2 && climber2) {
+			this.elevator.goToTop();
+			Timer.delay(3);
+			this.climber.goToTop();
+		} else if (climber2) {
+			this.climber.goToTop();
+		} else if (elevator2) {
+			this.elevator.goToTop();
 		}
 	}
 }
