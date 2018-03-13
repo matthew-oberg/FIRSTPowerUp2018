@@ -161,5 +161,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
         SmartDashboard.putBoolean("Climber Top", isClimberTop);
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
+        SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
     }
 }
