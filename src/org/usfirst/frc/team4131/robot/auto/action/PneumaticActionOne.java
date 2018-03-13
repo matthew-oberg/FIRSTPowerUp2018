@@ -18,7 +18,5 @@ public class PneumaticActionOne implements Action{
 	public void doAction() {
 		claw.clamp();
 		claw.armDown();
-		//Timer.delay(1);
-		this.claw.release();
 	}
 }

@@ -142,8 +142,12 @@ public class DriveBaseSubsystem extends Subsystem implements PIDSource {
      *
      * @return the ticks since the last reset travelled by
      * the left encoder
+     * 
+     * Originally right sensor position
      */
     public int getDist() {
+    	//System.err.println("left enc: " + this.left.getSelectedSensorPosition(PID_IDX) + " right enc: " + this.left.getSelectedSensorPosition(PID_IDX));
+    	
         return IS_LEFT_MASTER ? this.left.getSelectedSensorPosition(PID_IDX) :
         	this.right.getSelectedSensorPosition(PID_IDX);
     }

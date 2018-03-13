@@ -24,15 +24,14 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 		return Oi.ARM.get();
 	}
 
-	private static boolean buttonPusher() {
+	/*private static boolean buttonPusher() {
 		return Oi.PUSHER.get();
-	}
+	}*/
 
 	@Override
 	protected void execute() {
 
 		//CLAW STUFF
-
 		if (buttonClaw()) {
 			this.subsystem.release();
 		}
@@ -41,12 +40,11 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 		//hold the button, actuate out, wait until button release, then actuate closed
 		
 		//PUSHER STUFF
-		if (buttonPusher()) {
+		/*if (buttonPusher()) {
 			this.subsystem.pusherOut();
 
 		}
-		else {this.subsystem.pusherIn();}
-
+		else {this.subsystem.pusherIn();}*/
 
 		//ARM STUFF
 		if (buttonArm()) {

@@ -103,7 +103,7 @@ public class Robot extends IterativeRobot {
         }
 
 //TODO fix smartdashboard        Procedure procedure = this.chooser.getSelected();
-        Procedure procedure = new LeftRightBaseLine();
+        Procedure procedure = new EncoderCalibration();
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         
