@@ -21,8 +21,6 @@ public final class Oi {
     public static final Joystick L_JOYSTICK = new Joystick(RobotMap.L_JOY_PORT);
     public static final Joystick R_JOYSTICK = new Joystick(RobotMap.R_JOY_PORT);
     public static final Joystick AUX_JOYSTICK = new Joystick(RobotMap.AUX_JOY_PORT);
-
-    
     
     // Stick one buttons
     public static final JoystickButton INVERT_L_1 = new JoystickButton(L_JOYSTICK, 6);
@@ -37,15 +35,13 @@ public final class Oi {
     // Aux stick buttons
     public static final JoystickButton CLAW = new JoystickButton(AUX_JOYSTICK, 1);
     public static final JoystickButton ARM = new JoystickButton(AUX_JOYSTICK, 2);
-    
     public static final JoystickButton PUSHER = new JoystickButton(AUX_JOYSTICK, 11);
 
+    public static final JoystickButton ELEVATORUP = new JoystickButton(AUX_JOYSTICK, 5);
+    public static final JoystickButton ELEVATORDOWN = new JoystickButton(AUX_JOYSTICK, 3);
     
-    public static final JoystickButton CLAWUP = new JoystickButton(AUX_JOYSTICK, 5);
-    public static final JoystickButton CLAWDOWN = new JoystickButton(AUX_JOYSTICK, 3);
-    
-    public static final JoystickButton RAISECLIMBER = new JoystickButton(AUX_JOYSTICK, 6);
-    public static final JoystickButton LOWERCLIMBER = new JoystickButton(AUX_JOYSTICK, 4);
+    public static final JoystickButton CLIMBERUP = new JoystickButton(AUX_JOYSTICK, 6);
+    public static final JoystickButton CLIMBERDOWN = new JoystickButton(AUX_JOYSTICK, 4);
     
 
     private Oi() { // Prevent instantiation

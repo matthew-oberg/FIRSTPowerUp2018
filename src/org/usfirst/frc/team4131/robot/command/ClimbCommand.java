@@ -20,8 +20,8 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * @return {@code true} to signal that climbing should
      * commence
      */
-    private static boolean shouldClimb() {
-        return Oi.LOWERCLIMBER.get();
+    private static boolean shouldLower() {
+        return Oi.CLIMBERDOWN.get();
     }
 
     /**
@@ -31,21 +31,21 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * @return {@code true} to signal that the robot should
      * lower itself
      */
-    private static boolean shouldDescend() {
-        return Oi.RAISECLIMBER.get();
+    private static boolean shouldRaise() {
+        return Oi.CLIMBERUP.get();
     }
 
     @Override
     protected void execute() {
-        if (shouldClimb() && shouldDescend()) {
+        if (shouldLower() && shouldRaise()) {
             this.subsystem.stop();
-        } else if (shouldClimb()) {
+        } else if (shouldLower()) {
             if (!Robot.isClimberTop) {
                 this.subsystem.stop();
             } else {
                 this.subsystem.climb();
             }
-        } else if (shouldDescend()) {
+        } else if (shouldRaise()) {
             if (!Robot.isClimberBottom) {
                 this.subsystem.stop();
             } else {
