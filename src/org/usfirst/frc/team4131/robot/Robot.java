@@ -29,9 +29,13 @@ import java.util.function.Supplier;
  * Robot lifecycle handler.
  */
 public class Robot extends IterativeRobot {
-    // Compressor stuff
+    
+	// Compressor stuff
     private static final Compressor compressor = new Compressor(61);
 
+    // Smart Dashboard Fix
+    private static final boolean isSmartDashboardBroken = true;
+    
     // Booleans for random functions
     public static boolean isInverted;
     public static boolean isClimberTop;
@@ -83,7 +87,7 @@ public class Robot extends IterativeRobot {
         this.chooser.addObject("DS2ToSwitch", new DriverStation2ToSwitch());
         this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());
-        SmartDashboard.putData("Auto mode", this.chooser);
+        SmartDashboard.putData("Auto Mode", this.chooser);
         
         provider.getClaw().armUp();
         provider.getClaw().clamp();
@@ -102,8 +106,13 @@ public class Robot extends IterativeRobot {
             sides[i] = Side.decode(str.charAt(i));
         }
 
-//TODO fix smartdashboard        Procedure procedure = this.chooser.getSelected();
-        Procedure procedure = new EncoderCalibration();
+        // We can now test with or without smart dashboard easily
+        Procedure procedure;
+        if (isSmartDashboardBroken) {
+        	procedure = new EncoderCalibration();
+        } else {
+        	procedure = this.chooser.getSelected();
+        }
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         
