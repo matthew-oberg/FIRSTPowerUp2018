@@ -144,6 +144,9 @@ public class Robot extends IterativeRobot {
 
         // Inverting controls
         isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
+        
+        // Throttle Mode
+        isThrottleMode = Oi.THROTTLE_MODE.get();
 
         // Limit switch stuff
         isClimberTop = this.topClimberSwitch.get();
@@ -151,12 +154,6 @@ public class Robot extends IterativeRobot {
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
       
-        // Throttle Mode
-        isThrottleMode = Oi.THROTTLE_MODE.get();
-        
-        // Inverting controls
-        isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
-        
         // Smart Dashboard Info
         SmartDashboard.putBoolean("Controls Inverted", isInverted);
         SmartDashboard.putBoolean("Throttle Mode", isThrottleMode);
