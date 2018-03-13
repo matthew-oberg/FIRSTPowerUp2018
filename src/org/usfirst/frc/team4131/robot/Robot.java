@@ -124,7 +124,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-        isClimberTop = this.topClimberSwitch.get();
+        Scheduler.getInstance().run();
+    	
+        // Prints Drivebase encoder value
+        SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
+        
+    	// Limit switches
+    	isClimberTop = this.topClimberSwitch.get();
         isClimberBottom = this.bottomClimberSwitch.get();
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
@@ -145,11 +151,18 @@ public class Robot extends IterativeRobot {
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
       
-        
         // Throttle Mode
-        //isThrottleMode = Oi.THROTTLE_MODE.get();
+        isThrottleMode = Oi.THROTTLE_MODE.get();
         
         // Inverting controls
         isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
+        
+        // Smart Dashboard Info
+        SmartDashboard.putBoolean("Controls Inverted", isInverted);
+        SmartDashboard.putBoolean("Throttle Mode", isThrottleMode);
+        SmartDashboard.putBoolean("Elevator Top", isElevatorTop);
+        SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
+        SmartDashboard.putBoolean("Climber Top", isClimberTop);
+        SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
     }
 }
