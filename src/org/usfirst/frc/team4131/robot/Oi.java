@@ -33,6 +33,7 @@ public final class Oi {
     public static final JoystickButton INVERT_R_2 = new JoystickButton(R_JOYSTICK, 3);
         
     // Aux stick buttons
+    public static final JoystickButton CLAW = new JoystickButton(AUX_JOYSTICK, 1);
     public static final JoystickButton ARM = new JoystickButton(AUX_JOYSTICK, 2);
     public static final JoystickButton PUSHER = new JoystickButton(AUX_JOYSTICK, 11);
 
