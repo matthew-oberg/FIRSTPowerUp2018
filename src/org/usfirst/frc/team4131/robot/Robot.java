@@ -33,9 +33,6 @@ public class Robot extends IterativeRobot {
 	// Compressor stuff
     private static final Compressor compressor = new Compressor(61);
 
-    // Smart Dashboard Fix
-    private static final boolean isSmartDashboardBroken = true;
-    
     // Booleans for random functions
     public static boolean isInverted;
     public static boolean isClimberTop;
@@ -83,10 +80,11 @@ public class Robot extends IterativeRobot {
         compressor.clearAllPCMStickyFaults();
 
         // Display auto procedures on dashboard
-        this.chooser.addObject("Encoder Calibration", new EncoderCalibration());
+        this.chooser.addDefault("LeftRightBaseline", new LeftRightBaseLine());
         this.chooser.addObject("DS2ToSwitch", new DriverStation2ToSwitch());
         this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());
+        this.chooser.addObject("Encoder Calibration", new EncoderCalibration());
         SmartDashboard.putData("Auto Mode", this.chooser);
         
         provider.getClaw().armUp();
@@ -107,12 +105,7 @@ public class Robot extends IterativeRobot {
         }
 
         // We can now test with or without smart dashboard easily
-        Procedure procedure;
-        if (isSmartDashboardBroken) {
-        	procedure = new EncoderCalibration();
-        } else {
-        	procedure = this.chooser.getSelected();
-        }
+        Procedure procedure = this.chooser.getSelected();
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         
@@ -124,7 +117,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+    	Scheduler.getInstance().run();
     	
         // Prints Drivebase encoder value
         SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
