@@ -22,7 +22,7 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
      * be raised
      */
     private static boolean shouldRaise() {
-        return Oi.ELEVATORUP.get();
+        return Oi.ELEVATORDOWN.get();
     }
 
     /**
@@ -33,7 +33,7 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
      * be lowered
      */
     private static boolean shouldLower() {
-        return Oi.ELEVATORDOWN.get();
+        return Oi.ELEVATORUP.get();
     }
 
     @Override
