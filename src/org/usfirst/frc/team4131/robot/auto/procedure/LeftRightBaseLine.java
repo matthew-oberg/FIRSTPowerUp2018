@@ -20,7 +20,7 @@ public class LeftRightBaseLine implements Procedure {
     @Override
     public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
     		procedure.add(new PneumaticActionOne(provider.getClaw()));
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 60));
-            procedure.add(new PneumaticActionTwo(provider.getClaw()));           
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 144));
+            //procedure.add(new PneumaticActionTwo(provider.getClaw()));           
     }
 }

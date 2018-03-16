@@ -93,6 +93,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+
+    	provider.getDriveBase().reset();
     	
         String str = "";
         
