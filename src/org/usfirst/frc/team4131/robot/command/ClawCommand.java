@@ -32,7 +32,6 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 	protected void execute() {
 
 		//CLAW STUFF
-
 		if (buttonClaw()) {
 			this.subsystem.release();
 		}
@@ -46,7 +45,6 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 
 		}
 		else {this.subsystem.pusherIn();}
-
 
 		//ARM STUFF
 		if (buttonArm()) {

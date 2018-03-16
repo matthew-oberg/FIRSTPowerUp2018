@@ -29,7 +29,8 @@ import java.util.function.Supplier;
  * Robot lifecycle handler.
  */
 public class Robot extends IterativeRobot {
-    // Compressor stuff
+    
+	// Compressor stuff
     private static final Compressor compressor = new Compressor(61);
 
     // Booleans for random functions
@@ -79,11 +80,12 @@ public class Robot extends IterativeRobot {
         compressor.clearAllPCMStickyFaults();
 
         // Display auto procedures on dashboard
-        this.chooser.addObject("Encoder Calibration", new EncoderCalibration());
+        this.chooser.addDefault("LeftRightBaseline", new LeftRightBaseLine());
         this.chooser.addObject("DS2ToSwitch", new DriverStation2ToSwitch());
         this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());
-        SmartDashboard.putData("Auto mode", this.chooser);
+        this.chooser.addObject("Encoder Calibration", new EncoderCalibration());
+        SmartDashboard.putData("Auto Mode", this.chooser);
         
         provider.getClaw().armUp();
         provider.getClaw().clamp();
@@ -102,8 +104,8 @@ public class Robot extends IterativeRobot {
             sides[i] = Side.decode(str.charAt(i));
         }
 
-//TODO fix smartdashboard        Procedure procedure = this.chooser.getSelected();
-        Procedure procedure = new LeftRightBaseLine();
+        // We can now test with or without smart dashboard easily
+        Procedure procedure = this.chooser.getSelected();
         List<Action> actions = new ArrayList<>(procedure.estimateLen());
         procedure.populate(this.provider, Arrays.asList(sides), actions);
         
@@ -115,7 +117,13 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-        isClimberTop = this.topClimberSwitch.get();
+    	Scheduler.getInstance().run();
+    	
+        // Prints Drivebase encoder value
+        SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
+        
+    	// Limit switches
+    	isClimberTop = this.topClimberSwitch.get();
         isClimberBottom = this.bottomClimberSwitch.get();
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
@@ -129,6 +137,9 @@ public class Robot extends IterativeRobot {
 
         // Inverting controls
         isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
+        
+        // Throttle Mode
+        isThrottleMode = Oi.THROTTLE_MODE.get();
 
         // Limit switch stuff
         isClimberTop = this.topClimberSwitch.get();
@@ -136,11 +147,13 @@ public class Robot extends IterativeRobot {
         isElevatorTop = this.topElevatorSwitch.get();
         isElevatorBottom = this.bottomElevatorSwitch.get();
       
-        
-        // Throttle Mode
-        //isThrottleMode = Oi.THROTTLE_MODE.get();
-        
-        // Inverting controls
-        isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
+        // Smart Dashboard Info
+        SmartDashboard.putBoolean("Controls Inverted", isInverted);
+        SmartDashboard.putBoolean("Throttle Mode", isThrottleMode);
+        SmartDashboard.putBoolean("Elevator Top", isElevatorTop);
+        SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
+        SmartDashboard.putBoolean("Climber Top", isClimberTop);
+        SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
+        SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
     }
 }
