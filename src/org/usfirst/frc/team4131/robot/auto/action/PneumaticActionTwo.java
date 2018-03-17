@@ -18,6 +18,7 @@ public class PneumaticActionTwo implements Action{
 	
 	@Override
 	public void doAction() {
+		claw.armDown();
 		claw.release();
 		claw.pusherOut();
 	}

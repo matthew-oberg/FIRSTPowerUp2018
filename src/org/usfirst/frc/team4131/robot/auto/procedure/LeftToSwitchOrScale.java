@@ -33,27 +33,34 @@ public class LeftToSwitchOrScale implements Procedure {
             Timer.delay(1);
             //drive straight 168 inches (until level with center of the switch
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
+            Timer.delay(1);
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
+            Timer.delay(1);
             // drive straight until against switch
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 19.5));
-            procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+            Timer.delay(1);
+            procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
+            Timer.delay(1);
           //if switch is left
             procedure.add(new PneumaticActionTwo(provider.getClaw()));
           //if the switch is right but the scale is left
-        } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.LEFT) {
+        /*} else if (data.get(0) == Side.RIGHT && data.get(1) == Side.LEFT) {
             procedure.add(new PneumaticActionOne(provider.getClaw()));
             Timer.delay(1);
             //drive until level with the scale
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 336));
+            Timer.delay(1);
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+            Timer.delay(1);
+            //procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+            Timer.delay(1);
             procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
             Timer.delay(1);
             procedure.add(new PneumaticActionTwo(provider.getClaw()));
           //if both are right (either drive straight or go to center)
-        } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.RIGHT) {
+        */} else if (data.get(0) == Side.RIGHT && data.get(1) == Side.RIGHT) {
             procedure.add(new PneumaticActionOne(provider.getClaw()));
             //Currently runs same as LRBaseline
             Timer.delay(1);

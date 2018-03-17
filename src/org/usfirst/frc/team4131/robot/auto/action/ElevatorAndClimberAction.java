@@ -18,8 +18,8 @@ public class ElevatorAndClimberAction implements Action{
 		this.climber = climber;
 		this.elevator = elevator;
 		
-		this.elevator2 = elevator2;
 		this.climber2 = climber2;
+		this.elevator2 = elevator2;
 	}
 	
 	@Override

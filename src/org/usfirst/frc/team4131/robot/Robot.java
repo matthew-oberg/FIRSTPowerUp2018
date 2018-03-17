@@ -81,7 +81,7 @@ public class Robot extends IterativeRobot {
 
         // Display auto procedures on dashboard
         this.chooser.addDefault("Left Right Baseline", new LeftRightBaseLine());
-        //this.chooser.addDefault("Left Right Baseline", new DriverSTation2ToBaseLine());
+        //this.chooser.addDefault("DS2 to baseline", new DriverSTation2ToBaseLine());
         this.chooser.addObject("DriverStation 2 to switch", new DriverStation2ToSwitch());
         /*this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());

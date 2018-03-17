@@ -19,6 +19,5 @@ public class PneumaticActionOne implements Action{
 	@Override
 	public void doAction() {
 		claw.clamp();
-		claw.armDown();
 	}
 }

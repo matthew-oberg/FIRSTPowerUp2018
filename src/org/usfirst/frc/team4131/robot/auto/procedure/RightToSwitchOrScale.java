@@ -34,19 +34,19 @@ public class RightToSwitchOrScale implements Procedure {
 			//turn left 90
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 19.5));
-			procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+			procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
 			procedure.add(new PneumaticActionTwo(provider.getClaw()));
-		} else if (data.get(0) == Side.LEFT && data.get(1) == Side.RIGHT) {
+		/*} else if (data.get(0) == Side.LEFT && data.get(1) == Side.RIGHT) {
             procedure.add(new PneumaticActionOne(provider.getClaw()));
 			//if the switch is left but the scale is right
 			//drive until level with the scale
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 336));
 			//turn left 90
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+			//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
 			procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
 			procedure.add(new PneumaticActionTwo(provider.getClaw()));
-		} else if (data.get(0) == Side.LEFT && data.get(1) == Side.LEFT) {
+		*/} else if (data.get(0) == Side.LEFT && data.get(1) == Side.LEFT) {
             procedure.add(new PneumaticActionOne(provider.getClaw()));
 			//if both are left (either drive straight or go to center)
 			//Currently runs same as LRBaseline
