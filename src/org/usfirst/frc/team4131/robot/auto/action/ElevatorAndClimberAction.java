@@ -14,8 +14,7 @@ public class ElevatorAndClimberAction implements Action{
 	
 	private boolean elevator2 = false;
 	private boolean climber2 = false;
-	
-	
+		
 	public ElevatorAndClimberAction(ClimberSubsystem climber, ElevatorSubsystem elevator, boolean climber2, boolean elevator2) {
 		this.climber = climber;
 		this.elevator = elevator;
