@@ -1,11 +1,9 @@
 package org.usfirst.frc.team4131.robot.auto.procedure;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.auto.Procedure;
 import org.usfirst.frc.team4131.robot.auto.Side;
 import org.usfirst.frc.team4131.robot.auto.action.PneumaticActionOne;
-import org.usfirst.frc.team4131.robot.auto.action.TurnAction;
 import org.usfirst.frc.team4131.robot.subsystem.SubsystemProvider;
 import java.util.List;
 
