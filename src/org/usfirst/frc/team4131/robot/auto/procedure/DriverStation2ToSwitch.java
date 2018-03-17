@@ -33,24 +33,24 @@ public class DriverStation2ToSwitch implements Procedure {
 			//forward 18", right 90, forward 27", left 90, forward 122"
 			procedure.add(new PneumaticActionOne(provider.getClaw()));
 			Timer.delay(1);
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 18));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 30));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 27));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 122));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 92));
 			Timer.delay(1);
 			procedure.add(new PneumaticActionTwo(provider.getClaw()));
 		} else if (data.get(0) == Side.LEFT){
 			//forward 18", left 90, forward 151", right 90, forward 122"
 			procedure.add(new PneumaticActionOne(provider.getClaw()));
 			Timer.delay(1);
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 18));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 30));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 27));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new ElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 122));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 92));
 			Timer.delay(1);
 			procedure.add(new PneumaticActionTwo(provider.getClaw()));
 		} else {
