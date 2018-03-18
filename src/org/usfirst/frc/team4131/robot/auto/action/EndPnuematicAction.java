@@ -8,11 +8,11 @@ import org.usfirst.frc.team4131.robot.subsystem.ClawSubsystem;
  * Release cube
  * Eject Cube
  */
-public class PneumaticActionTwo implements Action{
+public class EndPnuematicAction implements Action{
 
 	ClawSubsystem claw;
 
-	public PneumaticActionTwo(ClawSubsystem claw) {
+	public EndPnuematicAction(ClawSubsystem claw) {
 		this.claw = claw;
 	}
 	

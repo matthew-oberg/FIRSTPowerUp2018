@@ -43,13 +43,13 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
             if (!Robot.isClimberTop) {
                 this.subsystem.stop();
             } else {
-                this.subsystem.climb();
+                this.subsystem.raise();
             }
         } else if (shouldRaise()) {
             if (!Robot.isClimberBottom) {
                 this.subsystem.stop();
             } else {
-                this.subsystem.descend();
+                this.subsystem.lower();
             }
         } else {
             this.subsystem.stop();

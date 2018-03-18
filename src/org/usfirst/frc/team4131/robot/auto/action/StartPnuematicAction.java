@@ -8,11 +8,11 @@ import org.usfirst.frc.team4131.robot.subsystem.ClawSubsystem;
  * Clamp cube
  * Lower arm
  */
-public class PneumaticActionOne implements Action{
+public class StartPnuematicAction implements Action{
 
 	ClawSubsystem claw;
 
-	public PneumaticActionOne(ClawSubsystem claw) {
+	public StartPnuematicAction(ClawSubsystem claw) {
 		this.claw = claw;
 	}
 	
