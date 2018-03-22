@@ -21,7 +21,7 @@ public class Testing implements Procedure {
     @Override
     public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
     	System.err.println("Starting testing!");
-    	//procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
+    	procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
     	//Timer.delay(7);
     	//procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
     	//System.err.println("Finished lowering!");
