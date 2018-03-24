@@ -33,22 +33,36 @@ public class DriverStation2ToSwitch implements Procedure {
 		if (data.get(0) == Side.RIGHT) {
 			//forward 18", right 90, forward 27", left 90, forward 122"
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 30));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 50));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
+			procedure.add(new WaitAction(provider.getTimer(), 4));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 54));//74
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 		} else if (data.get(0) == Side.LEFT){
 			//forward 18", left 90, forward 151", right 90, forward 122"
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 30));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 75));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
+			procedure.add(new WaitAction(provider.getTimer(), 4));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 54));//74
+			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 		} else {
 			DriverStation.reportError("Bad FMS data", true);

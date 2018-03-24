@@ -62,16 +62,17 @@ public class ElevatorSubsystem extends Subsystem {
     
     public void goToTop() {
     	System.err.println("Climber going to top!");
-    	/*while (Robot.isElevatorBottom) {
+    	while (!Robot.isElevatorBottom) {
     		System.err.println("Elevator still in loop!");
     		this.raise();
     	}
     	System.out.println("DONE WOTH LOOP");
     	this.stop();
-    	*/
+
     	
-    	  this.motor.set(ControlMode.PercentOutput, -0.5);
+    	  /*this.motor.set(ControlMode.PercentOutput, -0.75);
     	  Timer.delay(5);
     	  this.motor.set(ControlMode.PercentOutput, 0);
+    	  */
     }
 }

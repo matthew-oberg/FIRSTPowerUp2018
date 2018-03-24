@@ -66,16 +66,16 @@ public class ClimberSubsystem extends Subsystem {
 
 	public void goToTop() {
 		System.err.println("Climber going to top!");
-		/*while (Robot.isClimberTop) {
+		while (!Robot.isClimberTop) {
     		System.err.println("Climber still in loop!");
     		this.raise();
     	}
     	this.stop();
-		 */
+		/*
 		this.one.set(ControlMode.PercentOutput, -0.5);
 		this.two.set(ControlMode.PercentOutput, -0.5);
 		Timer.delay(5);
 		this.one.set(ControlMode.PercentOutput, 0);
-		this.two.set(ControlMode.PercentOutput, 0);
+		this.two.set(ControlMode.PercentOutput, 0);*/
 	}
 }
