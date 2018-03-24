@@ -9,6 +9,7 @@ import org.usfirst.frc.team4131.robot.auto.action.RaiseElevatorAndClimberAction;
 import org.usfirst.frc.team4131.robot.auto.action.StartPnuematicAction;
 import org.usfirst.frc.team4131.robot.auto.action.EndPnuematicAction;
 import org.usfirst.frc.team4131.robot.auto.action.TurnAction;
+import org.usfirst.frc.team4131.robot.auto.action.WaitAction;
 import org.usfirst.frc.team4131.robot.subsystem.SubsystemProvider;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class RightToSwitchOrScale implements Procedure {
 	public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
 		if (data.get(0) == Side.RIGHT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
+            procedure.add(new WaitAction(provider.getTimer(), 1));
 			//if the switch is right
 			//drive straight 168 inches (until level with center of the switch
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));

@@ -114,13 +114,8 @@ public class DriveBaseSubsystem extends Subsystem implements PIDSource {
 	 * @param r the right motor speed
 	 */
 	public void doThrottle(double l, double r) {
-		if (!Robot.isClimberTop && !Robot.isClimberBottom) {
-			this.left.set(ControlMode.PercentOutput, Math.pow((sigl() * l), 3));
-			this.right.set(ControlMode.PercentOutput, Math.pow((sigr() * r), 3));
-		}else {
 			this.left.set(ControlMode.PercentOutput, Math.pow((sigl() * l), 7));
 			this.right.set(ControlMode.PercentOutput, Math.pow((sigr() * r), 7));
-		}
 	}
 
 	/**

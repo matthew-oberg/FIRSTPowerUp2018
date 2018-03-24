@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
     	
         // Init subsystems
         this.provider = new SubsystemProvider(new DriveBaseSubsystem(),
-                new ClawSubsystem(), new ClimberSubsystem(), new ElevatorSubsystem());
+                new ClawSubsystem(), new ClimberSubsystem(), new ElevatorSubsystem(), new TimerSubsystem());
 
         
         // Init camera
