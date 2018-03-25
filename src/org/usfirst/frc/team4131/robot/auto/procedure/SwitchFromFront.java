@@ -26,8 +26,7 @@ public class SwitchFromFront implements Procedure {
     		procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), (78)));//104
             procedure.add(new WaitAction(provider.getTimer(), 1));
-            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
-            //procedure.add(new WaitAction(provider.getTimer(), 2));
+            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
             procedure.add(new EndPnuematicAction(provider.getClaw()));
     }
 }

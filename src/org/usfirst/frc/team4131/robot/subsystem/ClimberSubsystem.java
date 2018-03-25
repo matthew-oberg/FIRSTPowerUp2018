@@ -17,6 +17,7 @@ import org.usfirst.frc.team4131.robot.command.ClimbCommand;
 public class ClimberSubsystem extends Subsystem {
 	private final TalonSRX one;
 	private final TalonSRX two;
+	private int loopcount = 0;
 
 	/**
 	 * Initializes and caches the climbing mechanism motors.
@@ -65,17 +66,16 @@ public class ClimberSubsystem extends Subsystem {
 	}
 
 	public void goToTop() {
-		System.err.println("Climber going to top!");
-		while (!Robot.isClimberTop) {
-    		System.err.println("Climber still in loop!");
-    		this.raise();
+    	loopcount = 0;
+    	System.err.println("Climber going to top!");
+    	while (Robot.isClimberTop) {
+    		System.err.println("Climber still in loop! loopcount = " + loopcount);
+    		this.one.set(ControlMode.PercentOutput, 1);
+    		this.two.set(ControlMode.PercentOutput, 1);
+    		loopcount++;
+    		if (loopcount > 4000) {break;}//5150 was working
     	}
+    	System.out.println("DONE WITH CLIMBER LOOP");
     	this.stop();
-		/*
-		this.one.set(ControlMode.PercentOutput, -0.5);
-		this.two.set(ControlMode.PercentOutput, -0.5);
-		Timer.delay(5);
-		this.one.set(ControlMode.PercentOutput, 0);
-		this.two.set(ControlMode.PercentOutput, 0);*/
 	}
 }

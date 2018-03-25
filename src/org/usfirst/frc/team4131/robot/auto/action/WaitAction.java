@@ -18,6 +18,7 @@ public class WaitAction implements Action{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
+		System.err.println("Delaying for " + time + " seconds!");
 		this.timer.delay(time);
 	}
 

@@ -17,7 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class ElevatorSubsystem extends Subsystem {
     private final TalonSRX motor;
-
+    private int loopcount = 0;
+    private boolean noLower = false;
     /**
      * Initializes and caches the climbing mechanism motor.
      */
@@ -43,6 +44,10 @@ public class ElevatorSubsystem extends Subsystem {
     public void lower() {
         this.motor.set(ControlMode.PercentOutput, 0.45);
     }
+    
+    public void noLower() {
+    	this.motor.set(ControlMode.PercentOutput, -0.2);
+    }
 
     /**
      * Halts claw movement, but the claw may or may not move
@@ -61,18 +66,16 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void goToTop() {
-    	System.err.println("Climber going to top!");
-    	while (!Robot.isElevatorBottom) {
-    		System.err.println("Elevator still in loop!");
-    		this.raise();
+    	loopcount = 0;
+    	System.err.println("Elevator going to top!");
+    	while (Robot.isElevatorTop) {
+    		System.err.println("Elevator still in loop! loopcount = " + loopcount);
+    		this.motor.set(ControlMode.PercentOutput, -1);// -1
+    		loopcount++;
+    		if (!Robot.isElevatorTop) {System.err.println("loop stopped by limit switch!");break;}
+    		else if (loopcount > 4450) {break;}
     	}
-    	System.out.println("DONE WOTH LOOP");
-    	this.stop();
-
-    	
-    	  /*this.motor.set(ControlMode.PercentOutput, -0.75);
-    	  Timer.delay(5);
-    	  this.motor.set(ControlMode.PercentOutput, 0);
-    	  */
+    	this.motor.set(ControlMode.PercentOutput, 0);
+    	System.out.println("DONE WITH ELEVATOR LOOP");
     }
 }

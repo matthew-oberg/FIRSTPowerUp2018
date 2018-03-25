@@ -85,8 +85,22 @@ public class ClawSubsystem extends Subsystem {
 		this.armTwo.set(true);
 	}
 
+	public void autonClamp() {
+		for (int i = 0; i < 300; i++) {
+			this.clawOne.set(true);
+			this.clawTwo.set(false);
+		}
+	}
+	
+	public void autonArmDown() {
+		for (int i = 0; i < 850; i++) {
+			this.armOne.set(false);
+			this.armTwo.set(true);
+		}
+	}
+
 	public void autonRelease() {
-		for (int i = 0; i < 1500; ++i) {
+		for (int i = 0; i < 250; ++i) {
 			this.clawOne.set(false);
 			this.clawTwo.set(true);
 		}

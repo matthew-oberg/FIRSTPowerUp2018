@@ -18,6 +18,6 @@ public class StartPnuematicAction implements Action{
 	
 	@Override
 	public void doAction() {
-		claw.clamp();
+		claw.autonClamp();
 	}
 }
