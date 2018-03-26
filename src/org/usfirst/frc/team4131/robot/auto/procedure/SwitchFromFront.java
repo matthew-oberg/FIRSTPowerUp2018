@@ -23,10 +23,9 @@ public class SwitchFromFront implements Procedure {
     @Override
     public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
     		procedure.add(new StartPnuematicAction(provider.getClaw()));
-    		procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), (78)));//104
-            procedure.add(new WaitAction(provider.getTimer(), 1));
-            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+            procedure.add(new WaitAction(provider.getTimer(), 0.5));
+            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
             procedure.add(new EndPnuematicAction(provider.getClaw()));
     }
 }

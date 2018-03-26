@@ -39,7 +39,7 @@ public class RightToSwitchOrScale implements Procedure {
 			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 19.5));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
-			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 		} else if (data.get(0) == Side.LEFT && data.get(1) == Side.RIGHT) {

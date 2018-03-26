@@ -73,7 +73,7 @@ public class ClimberSubsystem extends Subsystem {
     		this.one.set(ControlMode.PercentOutput, 1);
     		this.two.set(ControlMode.PercentOutput, 1);
     		loopcount++;
-    		if (loopcount > 4000) {break;}//5150 was working
+    		if (loopcount > 3750) {break;}//5150 was working
     	}
     	System.out.println("DONE WITH CLIMBER LOOP");
     	this.stop();

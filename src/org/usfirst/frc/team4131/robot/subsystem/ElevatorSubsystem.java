@@ -73,7 +73,7 @@ public class ElevatorSubsystem extends Subsystem {
     		this.motor.set(ControlMode.PercentOutput, -1);// -1
     		loopcount++;
     		if (!Robot.isElevatorTop) {System.err.println("loop stopped by limit switch!");break;}
-    		else if (loopcount > 4450) {break;}
+    		else if (loopcount > 4450) {break;}//4450 to get close to top
     	}
     	this.motor.set(ControlMode.PercentOutput, 0);
     	System.out.println("DONE WITH ELEVATOR LOOP");
