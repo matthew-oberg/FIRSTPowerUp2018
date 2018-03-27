@@ -2,6 +2,7 @@ package org.usfirst.frc.team4131.robot.subsystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team4131.robot.Robot;
@@ -16,7 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class ElevatorSubsystem extends Subsystem {
     private final TalonSRX motor;
-
+    private int loopcount = 0;
+    private boolean noLower = false;
     /**
      * Initializes and caches the climbing mechanism motor.
      */
@@ -33,14 +35,18 @@ public class ElevatorSubsystem extends Subsystem {
      * Raises the claw.
      */
     public void raise() {
-        this.motor.set(ControlMode.PercentOutput, -0.75);
+        this.motor.set(ControlMode.PercentOutput, -0.85);
     }
 
     /**
      * Lowers the claw.
      */
     public void lower() {
-        this.motor.set(ControlMode.PercentOutput, 0.4);
+        this.motor.set(ControlMode.PercentOutput, 0.45);
+    }
+    
+    public void noLower() {
+    	this.motor.set(ControlMode.PercentOutput, -0.2);
     }
 
     /**
@@ -52,7 +58,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void goToBottom() {
-    	this.stop();
+    	
     	while (Robot.isElevatorBottom) {
     		this.lower();
     	}
@@ -60,13 +66,16 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void goToTop() {
-    	/*this.stop();
-    	while (Robot.topElevatorSwitch.get()) {
-    		System.out.println("Still in loop");
-    		System.out.println(Robot.isElevatorTop);
-    		this.raise();
+    	loopcount = 0;
+    	System.err.println("Elevator going to top!");
+    	while (Robot.isElevatorTop) {
+    		System.err.println("Elevator still in loop! loopcount = " + loopcount);
+    		this.motor.set(ControlMode.PercentOutput, -1);// -1
+    		loopcount++;
+    		if (!Robot.isElevatorTop) {System.err.println("loop stopped by limit switch!");break;}
+    		else if (loopcount > 4450) {break;}//4450 to get close to top
     	}
-    	System.out.println("DONE WOTH LOOP");
-    	this.stop();*/
+    	this.motor.set(ControlMode.PercentOutput, 0);
+    	System.out.println("DONE WITH ELEVATOR LOOP");
     }
 }

@@ -4,6 +4,8 @@ import org.usfirst.frc.team4131.robot.Oi;
 import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.robot.subsystem.ElevatorSubsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 /**
  * A command used to raise or lower the crate held in the
  * claw using the elevator subsystem.
@@ -58,7 +60,7 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
                 isTop = true;
             }
         } else {
-            this.subsystem.stop();
+        	this.subsystem.noLower();
         }
     }
 
