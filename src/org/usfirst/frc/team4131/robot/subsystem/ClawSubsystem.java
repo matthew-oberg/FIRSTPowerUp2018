@@ -104,13 +104,15 @@ public class ClawSubsystem extends Subsystem {
 			this.clawOne.set(false);
 			this.clawTwo.set(true);
 		}
+		
 	}
 
 	public void autonPusherOut() {
-		for (int i = 0; i < 50; ++i) {
+		for (int i = 0; i < 100; ++i) {
 			this.pusherOne.set(false);
 			this.pusherTwo.set(true);
 		}
+		
 	}
 
 }

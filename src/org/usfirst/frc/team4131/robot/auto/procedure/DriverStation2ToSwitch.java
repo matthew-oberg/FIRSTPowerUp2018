@@ -21,6 +21,7 @@ import java.util.List;
  * in front of the driver station.
  */
 public class DriverStation2ToSwitch implements Procedure {
+	
 	@Override
 	public int estimateLen() {
 		return 5;
