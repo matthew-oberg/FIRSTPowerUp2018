@@ -47,10 +47,10 @@ public class Robot extends IterativeRobot {
     private final SendableChooser<Procedure> chooser = new SendableChooser<>();
 
     // Limit Switches
-    private final DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
-    private final DigitalInput topElevatorSwitch = new DigitalInput(1);//true
-    private final DigitalInput topClimberSwitch = new DigitalInput(2);//true
-    private final DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
+    public final static DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
+    public final static DigitalInput topElevatorSwitch = new DigitalInput(1);//true
+    public final static DigitalInput topClimberSwitch = new DigitalInput(2);//true
+    public final static DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
 
     // Subsystem stuff
     private SubsystemProvider provider;
@@ -131,10 +131,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
     	
         // Limit switches
-    	isClimberTop = this.topClimberSwitch.get();
-        isClimberBottom = this.bottomClimberSwitch.get();
-        isElevatorTop = this.topElevatorSwitch.get();
-        isElevatorBottom = this.bottomElevatorSwitch.get();
+    	isClimberTop = !this.topClimberSwitch.get();
+        isClimberBottom = !this.bottomClimberSwitch.get();
+        isElevatorTop = !this.topElevatorSwitch.get();
+        isElevatorBottom = !this.bottomElevatorSwitch.get();
     }
 
     // ----------------------------------------------------
@@ -150,10 +150,10 @@ public class Robot extends IterativeRobot {
         isThrottleMode = Oi.THROTTLE_MODE.get();
 
         // Limit switch stuff
-        isClimberTop = this.topClimberSwitch.get();
-        isClimberBottom = this.bottomClimberSwitch.get();
-        isElevatorTop = this.topElevatorSwitch.get();
-        isElevatorBottom = this.bottomElevatorSwitch.get();
+        isClimberTop = !this.topClimberSwitch.get();
+        isClimberBottom = !this.bottomClimberSwitch.get();
+        isElevatorTop = !this.topElevatorSwitch.get();
+        isElevatorBottom = !this.bottomElevatorSwitch.get();
       
         // Smart Dashboard Info
         SmartDashboard.putBoolean("Controls Inverted", isInverted);

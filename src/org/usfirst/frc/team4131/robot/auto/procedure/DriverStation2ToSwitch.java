@@ -33,23 +33,25 @@ public class DriverStation2ToSwitch implements Procedure {
 		//start at 180
 		if (data.get(0) == Side.RIGHT) {
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 54));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 44));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 95));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			procedure.add(new WaitAction(provider.getTimer(), 0.5));
-			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 86));
+			
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 66));
+			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 		} else if (data.get(0) == Side.LEFT){
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 54));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 44));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 97));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new WaitAction(provider.getTimer(), 0.5));
-			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 86));
+			
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 66));
+			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 		} else {
 			DriverStation.reportError("Bad FMS data", true);

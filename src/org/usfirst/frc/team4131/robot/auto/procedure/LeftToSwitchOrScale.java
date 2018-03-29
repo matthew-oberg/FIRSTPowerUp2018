@@ -34,7 +34,7 @@ public class LeftToSwitchOrScale implements Procedure {
             //drive straight 168 inches (until level with center of the switch
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
             //turn right 90
-            procedure.add(new TurnAction(provider.getDriveBase(), 98));
+            procedure.add(new TurnAction(provider.getDriveBase(), 90));
             //.add(new WaitAction(provider.getTimer(), 1));
             // drive straight until against switch
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
@@ -61,6 +61,8 @@ public class LeftToSwitchOrScale implements Procedure {
             procedure.add(new EndPnuematicAction(provider.getClaw()));
           //if both are right (either drive straight or go to center)
             procedure.add(new WaitAction(provider.getTimer(), 1));
+            procedure.add(new StartPnuematicAction(provider.getClaw()));
+            procedure.add(new TurnAction(provider.getDriveBase(), -90));
         } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.RIGHT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
             //Currently runs same as LRBaseline
