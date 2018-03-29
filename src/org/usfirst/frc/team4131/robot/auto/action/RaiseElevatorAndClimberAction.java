@@ -26,8 +26,8 @@ public class RaiseElevatorAndClimberAction implements Action{
 	public void doAction() {
 		System.err.println("Raising!");
 		if (this.elevator2 && this.climber2) {
-			this.elevator.goToTop();
 			this.climber.goToTop();
+			this.elevator.goToTop();
 		} else if (this.climber2) {
 			this.climber.goToTop();
 		} else if (this.elevator2) {

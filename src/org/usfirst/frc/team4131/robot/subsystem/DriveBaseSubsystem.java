@@ -49,7 +49,7 @@ public class DriveBaseSubsystem extends Subsystem implements PIDSource {
 
 		this.setupEncoder();
 		this.reset();
-		this.ramp(0.3);
+		//this.ramp(0.3);
 	}
 
 	@Override
@@ -99,11 +99,12 @@ public class DriveBaseSubsystem extends Subsystem implements PIDSource {
 	 * 
 	 * @param ramp the ramp to set on the talons
 	 */
+	/*
 	public void ramp(double ramp) {
 		this.left.configOpenloopRamp(0.3, SENSOR_TIMEOUT);
 		this.right.configOpenloopRamp(0.3, SENSOR_TIMEOUT);
 	}
-
+	*/
 	// Talon control ---------------------------------------
 
 	/**

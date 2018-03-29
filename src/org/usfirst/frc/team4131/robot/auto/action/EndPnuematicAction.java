@@ -18,8 +18,11 @@ public class EndPnuematicAction implements Action{
 	
 	@Override
 	public void doAction() {
-		claw.autonArmDown();
-		claw.autonRelease();
-		claw.autonPusherOut();
+		for(int i=0;i <= 500; i++) {
+		claw.armDown();
+		}
+		claw.release();
+		claw.pusherOut();
+		
 	}
 }

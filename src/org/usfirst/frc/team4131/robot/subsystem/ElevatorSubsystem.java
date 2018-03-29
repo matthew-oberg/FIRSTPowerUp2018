@@ -17,8 +17,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  */
 public class ElevatorSubsystem extends Subsystem {
     private final TalonSRX motor;
-    private int loopcount = 0;
-    private boolean noLower = false;
+
+    public static boolean isElevatorTop = false;
+    public static boolean isElevatorBottom = true;
     /**
      * Initializes and caches the climbing mechanism motor.
      */
@@ -36,6 +37,7 @@ public class ElevatorSubsystem extends Subsystem {
      */
     public void raise() {
         this.motor.set(ControlMode.PercentOutput, -0.85);
+        
     }
 
     /**
@@ -58,24 +60,37 @@ public class ElevatorSubsystem extends Subsystem {
     }
     
     public void goToBottom() {
-    	
-    	while (Robot.isElevatorBottom) {
-    		this.lower();
+    	this.lower();
+    	while(shouldLower()) {
+    	if(Robot.isElevatorBottom) {
+    		this.stop();
+    	} 
     	}
-    	this.stop();
     }
     
     public void goToTop() {
-    	loopcount = 0;
-    	System.err.println("Elevator going to top!");
-    	while (Robot.isElevatorTop) {
-    		System.err.println("Elevator still in loop! loopcount = " + loopcount);
-    		this.motor.set(ControlMode.PercentOutput, -1);// -1
-    		loopcount++;
-    		if (!Robot.isElevatorTop) {System.err.println("loop stopped by limit switch!");break;}
-    		else if (loopcount > 4450) {break;}//4450 to get close to top
+ 
+    	while(shouldRaise()) {
+
+            isElevatorTop = !Robot.topElevatorSwitch.get();
+            isElevatorBottom = !Robot.bottomElevatorSwitch.get();
+    		if(!shouldRaise()) {
+    		
+    		this.noLower();
+    		break;
     	}
-    	this.motor.set(ControlMode.PercentOutput, 0);
-    	System.out.println("DONE WITH ELEVATOR LOOP");
+    	this.raise();
+    	}
+
     }
-}
+
+    
+    private static boolean shouldRaise() {
+    	return !isElevatorTop;
+    }
+    
+    private static boolean shouldLower() {
+    	return false;
+    }
+    }
+    

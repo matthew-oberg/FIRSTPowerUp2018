@@ -27,10 +27,10 @@ public class TurnCtl implements PIDOutput {
     private TurnCtl() {
         this.dev = new AHRS(SPI.Port.kMXP);
 
-        PIDController controller = new PIDController(.013, 0, 0, 0, this.dev, this);
+        PIDController controller = new PIDController(.015, 0, 0, 0, this.dev, this);
         controller.setInputRange(-180, 180);
-        controller.setOutputRange(-1, 1);
-        controller.setAbsoluteTolerance(1);
+        controller.setOutputRange(-.8, .8);
+        controller.setAbsoluteTolerance(5);
         controller.setContinuous(true);
         controller.disable();
         this.controller = controller;

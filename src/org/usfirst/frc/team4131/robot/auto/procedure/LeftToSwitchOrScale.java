@@ -35,35 +35,40 @@ public class LeftToSwitchOrScale implements Procedure {
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+            //.add(new WaitAction(provider.getTimer(), 1));
             // drive straight until against switch
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
-            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, false));
-            procedure.add(new WaitAction(provider.getTimer(), 4));
+            //procedure.add(new WaitAction(provider.getTimer(), 1));
+            procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+            //procedure.add(new WaitAction(provider.getTimer(), 4));
           //if switch is left
             procedure.add(new EndPnuematicAction(provider.getClaw()));
           //if the switch is right but the scale is left
+            procedure.add(new WaitAction(provider.getTimer(), 1));
         } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.LEFT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+           // procedure.add(new WaitAction(provider.getTimer(), 1));
             //drive until level with the scale
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 336));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+            //procedure.add(new WaitAction(provider.getTimer(), 1));
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+            //procedure.add(new WaitAction(provider.getTimer(), 1));
             //procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+           // procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
-            procedure.add(new WaitAction(provider.getTimer(), 1));
+            //procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new EndPnuematicAction(provider.getClaw()));
           //if both are right (either drive straight or go to center)
+            procedure.add(new WaitAction(provider.getTimer(), 1));
+            procedure.add(new StartPnuematicAction(provider.getClaw()));
+            procedure.add(new TurnAction(provider.getDriveBase(), -90));
         } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.RIGHT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
             //Currently runs same as LRBaseline
             procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 144));
+            procedure.add(new WaitAction(provider.getTimer(), 1));
         } else {
             System.err.println("Bad FMS data!");
         }

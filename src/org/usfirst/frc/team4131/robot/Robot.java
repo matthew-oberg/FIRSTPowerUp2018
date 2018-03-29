@@ -47,10 +47,10 @@ public class Robot extends IterativeRobot {
     private final SendableChooser<Procedure> chooser = new SendableChooser<>();
 
     // Limit Switches
-    private final DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
-    private final DigitalInput topElevatorSwitch = new DigitalInput(1);//true
-    private final DigitalInput topClimberSwitch = new DigitalInput(2);//true
-    private final DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
+    public final static DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
+    public final static DigitalInput topElevatorSwitch = new DigitalInput(1);//true
+    public final static DigitalInput topClimberSwitch = new DigitalInput(2);//true
+    public final static DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
 
     // Subsystem stuff
     private SubsystemProvider provider;
@@ -81,7 +81,8 @@ public class Robot extends IterativeRobot {
 
         // Display auto procedures on dashboard
         this.chooser.addDefault("Left Right Baseline", new LeftRightBaseLine());
-        this.chooser.addDefault("Switch from front", new SwitchFromFront());
+        this.chooser.addObject("Switch from front Right", new SwitchFromFrontRight());
+        this.chooser.addObject("Switch from front Left", new SwitchFromFrontLeft());
         this.chooser.addObject("DriverStation 2 to switch", new DriverStation2ToSwitch());
         this.chooser.addObject("LeftToSwitchOrScale", new LeftToSwitchOrScale());
         this.chooser.addObject("RightToSwitchOrScale", new RightToSwitchOrScale());
@@ -122,14 +123,18 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
     	
-        // Prints Drivebase encoder value
+        // Prints SD info
         SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
-        
-    	// Limit switches
-    	isClimberTop = this.topClimberSwitch.get();
-        isClimberBottom = this.bottomClimberSwitch.get();
-        isElevatorTop = this.topElevatorSwitch.get();
-        isElevatorBottom = this.bottomElevatorSwitch.get();
+        SmartDashboard.putBoolean("Elevator Top", isElevatorTop);
+        SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
+        SmartDashboard.putBoolean("Climber Top", isClimberTop);
+        SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
+    	
+        // Limit switches
+    	isClimberTop = !this.topClimberSwitch.get();
+        isClimberBottom = !this.bottomClimberSwitch.get();
+        isElevatorTop = !this.topElevatorSwitch.get();
+        isElevatorBottom = !this.bottomElevatorSwitch.get();
     }
 
     // ----------------------------------------------------
@@ -145,10 +150,10 @@ public class Robot extends IterativeRobot {
         isThrottleMode = Oi.THROTTLE_MODE.get();
 
         // Limit switch stuff
-        isClimberTop = this.topClimberSwitch.get();
-        isClimberBottom = this.bottomClimberSwitch.get();
-        isElevatorTop = this.topElevatorSwitch.get();
-        isElevatorBottom = this.bottomElevatorSwitch.get();
+        isClimberTop = !this.topClimberSwitch.get();
+        isClimberBottom = !this.bottomClimberSwitch.get();
+        isElevatorTop = !this.topElevatorSwitch.get();
+        isElevatorBottom = !this.bottomElevatorSwitch.get();
       
         // Smart Dashboard Info
         SmartDashboard.putBoolean("Controls Inverted", isInverted);
