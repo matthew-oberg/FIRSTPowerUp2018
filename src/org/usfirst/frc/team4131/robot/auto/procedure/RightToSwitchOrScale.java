@@ -49,14 +49,16 @@ public class RightToSwitchOrScale implements Procedure {
            // procedure.add(new WaitAction(provider.getTimer(), 1));
 			//if the switch is left but the scale is right
 			//drive until level with the scale
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 336));
+			
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 305));
 			//procedure.add(new WaitAction(provider.getTimer(), 1));
 			//turn left 90
-			procedure.add(new TurnAction(provider.getDriveBase(), -90));
+            procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			//procedure.add(new WaitAction(provider.getTimer(), 1));
-			//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), -10));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
 			//procedure.add(new WaitAction(provider.getTimer(), 1));
+			//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 10));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new StartPnuematicAction(provider.getClaw()));

@@ -51,6 +51,9 @@ public class Robot extends IterativeRobot {
     public final static DigitalInput topElevatorSwitch = new DigitalInput(1);//true
     public final static DigitalInput topClimberSwitch = new DigitalInput(2);//true
     public final static DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
+    
+    //bear metal delay
+    public static boolean isBearMetal = false;
 
     // Subsystem stuff
     private SubsystemProvider provider;
@@ -129,6 +132,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
         SmartDashboard.putBoolean("Climber Top", isClimberTop);
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
+        
+        //9 second delay for bear metal
+        SmartDashboard.putBoolean("BEAR METAL'S DELAY!!!", isBearMetal);
     	
         // Limit switches
     	isClimberTop = !this.topClimberSwitch.get();

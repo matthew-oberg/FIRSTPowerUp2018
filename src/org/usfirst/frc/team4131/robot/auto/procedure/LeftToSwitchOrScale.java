@@ -32,7 +32,7 @@ public class LeftToSwitchOrScale implements Procedure {
         if (data.get(0) == Side.LEFT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));    	
             //drive straight 168 inches (until level with center of the switch
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 168));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 130));
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
             //.add(new WaitAction(provider.getTimer(), 1));
@@ -49,14 +49,15 @@ public class LeftToSwitchOrScale implements Procedure {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
            // procedure.add(new WaitAction(provider.getTimer(), 1));
             //drive until level with the scale
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 336));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 305));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             //turn right 90
             procedure.add(new TurnAction(provider.getDriveBase(), 90));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
-            //procedure.add(new DistanceMoveAction(provider.getDriveBase(), 5.9));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), -10));
            // procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
+            //procedure.add(new DistanceMoveAction(provider.getDriveBase(), 10));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new EndPnuematicAction(provider.getClaw()));
           //if both are right (either drive straight or go to center)
