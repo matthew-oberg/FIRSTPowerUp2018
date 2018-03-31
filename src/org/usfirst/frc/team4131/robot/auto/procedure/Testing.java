@@ -23,15 +23,13 @@ public class Testing implements Procedure {
 	public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
 		System.err.println("Starting testing!");
 		procedure.add(new StartPnuematicAction(provider.getClaw()));
-
 		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 60));
-		//for (int //i = 0 ; i < 5; i++) {
-		//procedure.add(new TurnAction(provider.getDriveBase(), -90));
-		//procedure.add(new WaitAction(provider.getTimer(), 1));
-		//procedure.add(new TurnAction(provider.getDriveBase(), -90));
+		procedure.add(new TurnAction(provider.getDriveBase(), -90));
+		procedure.add(new WaitAction(provider.getTimer(), 3));
+		procedure.add(new TurnAction(provider.getDriveBase(), 90));
 		//procedure.add(new WaitAction(provider.getTimer(), 1));
 		//procedure.add(new TurnAction(provider.getDriveBase(), 90));
-		procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+		//procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
 		//procedure.add(new LowerElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), true, true));
 		procedure.add(new EndPnuematicAction(provider.getClaw()));
 		//System.err.println("Finished testing!");
