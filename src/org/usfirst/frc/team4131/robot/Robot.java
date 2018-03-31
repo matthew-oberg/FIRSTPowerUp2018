@@ -75,8 +75,8 @@ public class Robot extends IterativeRobot {
 
         
         // Init camera
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
 
         // Compressor setup
         compressor.setClosedLoopControl(true);
@@ -134,7 +134,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
         
         //9 second delay for bear metal
-        SmartDashboard.putBoolean("BEAR METAL'S DELAY!!!", isBearMetal);
+        //SmartDashboard.putBoolean("BEAR METAL'S DELAY!!!", isBearMetal);
     	
         // Limit switches
     	isClimberTop = !this.topClimberSwitch.get();

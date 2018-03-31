@@ -38,12 +38,13 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 	@Override
 	protected void execute() {
 		
-		this.subsystem.pusherIn();
-		this.subsystem.clamp();
+		
+		//
 		//CLAW STUFF
 		if (buttonClaw()) {
 			this.subsystem.release();
 		}
+		else {this.subsystem.clamp();}
 
 		//ARM STUFF
 		if (buttonArm()) {
@@ -97,6 +98,7 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 		if (buttonPusher()) {
 			this.subsystem.pusherOut();
 		}
+		else {this.subsystem.pusherIn();}
 	}
 
 	@Override
