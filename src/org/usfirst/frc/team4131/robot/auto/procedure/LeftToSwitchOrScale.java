@@ -53,7 +53,7 @@ public class LeftToSwitchOrScale implements Procedure {
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), 305));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             //turn right 90
-            procedure.add(new TurnHalfSpeedAction(provider.getDriveBase(), 90));
+            procedure.add(new TurnAction(provider.getDriveBase(), 90));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), -10));
            // procedure.add(new WaitAction(provider.getTimer(), 1));

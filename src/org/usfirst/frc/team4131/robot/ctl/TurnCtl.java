@@ -30,7 +30,7 @@ public class TurnCtl implements PIDOutput {
         PIDController controller = new PIDController(.03, 0, 0, 0, this.dev, this);
         controller.setInputRange(-180, 180);
         controller.setOutputRange(-.8, .8);
-        controller.setAbsoluteTolerance(2.5);
+        controller.setAbsoluteTolerance(10);
         controller.setContinuous(true);
         controller.disable();
         this.controller = controller;
