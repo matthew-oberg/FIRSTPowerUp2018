@@ -48,7 +48,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void noLower() {
-		this.motor.set(ControlMode.PercentOutput, -0.2);
+		this.motor.set(ControlMode.PercentOutput, -0.15);
 	}
 
 	/**

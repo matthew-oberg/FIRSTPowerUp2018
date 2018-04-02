@@ -9,7 +9,7 @@ import org.usfirst.frc.team4131.robot.subsystem.DriveBaseSubsystem;
  * A turn action causes the robot to rotate until the given
  * arguments have been reached.
  */
-public class TurnAction implements Action {
+public class TurnHalfSpeedAction implements Action {
     /** The drive base */
     private final DriveBaseSubsystem driveBase;
     /** The value to turn */
@@ -22,7 +22,7 @@ public class TurnAction implements Action {
      * @param driveBase the drive base
      * @param delta the delta angle to turn
      */
-    public TurnAction(DriveBaseSubsystem driveBase, float delta) {
+    public TurnHalfSpeedAction(DriveBaseSubsystem driveBase, float delta) {
         this.driveBase = driveBase;
         this.delta = delta;
     }
@@ -39,7 +39,7 @@ public class TurnAction implements Action {
             }
 
             double value = controller.getDelta();
-            value = Math.abs(value) < 0.5 ? Math.signum(value) : value;
+            value = Math.abs(value) < 0.5 ? Math.signum(value) * 0.5 : value;
 
             this.driveBase.doThrottle(Oi.sigl() * value, Oi.sigr() * value);
         }

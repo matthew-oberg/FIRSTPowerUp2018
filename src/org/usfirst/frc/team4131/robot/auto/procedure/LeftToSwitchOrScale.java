@@ -9,6 +9,7 @@ import org.usfirst.frc.team4131.robot.auto.action.StartPnuematicAction;
 import org.usfirst.frc.team4131.robot.auto.action.EndPnuematicAction;
 import org.usfirst.frc.team4131.robot.auto.action.TurnAction;
 import org.usfirst.frc.team4131.robot.auto.action.WaitAction;
+import org.usfirst.frc.team4131.robot.auto.action.TurnHalfSpeedAction;
 import org.usfirst.frc.team4131.robot.subsystem.SubsystemProvider;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -46,13 +47,13 @@ public class LeftToSwitchOrScale implements Procedure {
           //if the switch is right but the scale is left
             procedure.add(new WaitAction(provider.getTimer(), 1));
         } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.LEFT) {
-            procedure.add(new StartPnuematicAction(provider.getClaw()));
+            procedure.add(new WaitAction(provider.getTimer(), 1));
            // procedure.add(new WaitAction(provider.getTimer(), 1));
             //drive until level with the scale
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 305));
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), 144));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             //turn right 90
-            procedure.add(new TurnAction(provider.getDriveBase(), 90));
+            /*procedure.add(new TurnAction(provider.getDriveBase(), 90));
             //procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new DistanceMoveAction(provider.getDriveBase(), -10));
            // procedure.add(new WaitAction(provider.getTimer(), 1));
@@ -63,7 +64,7 @@ public class LeftToSwitchOrScale implements Procedure {
           //if both are right (either drive straight or go to center)
             procedure.add(new WaitAction(provider.getTimer(), 1));
             procedure.add(new StartPnuematicAction(provider.getClaw()));
-            procedure.add(new TurnAction(provider.getDriveBase(), -90));
+            procedure.add(new TurnAction(provider.getDriveBase(), -90));*/
         } else if (data.get(0) == Side.RIGHT && data.get(1) == Side.RIGHT) {
             procedure.add(new StartPnuematicAction(provider.getClaw()));
             //Currently runs same as LRBaseline

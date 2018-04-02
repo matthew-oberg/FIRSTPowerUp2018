@@ -59,7 +59,7 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
                 this.subsystem.lower();
                 
             }
-        } else {
+        } else if (!shouldLower() && !shouldRaise() ) {
         	this.subsystem.noLower();
         }
     }
