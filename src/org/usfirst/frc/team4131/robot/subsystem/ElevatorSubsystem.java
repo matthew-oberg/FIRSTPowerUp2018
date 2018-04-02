@@ -73,7 +73,6 @@ public class ElevatorSubsystem extends Subsystem {
 		while(shouldRaise()) {
 
 			isElevatorTop = !Robot.topElevatorSwitch.get();
-			isElevatorBottom = !Robot.bottomElevatorSwitch.get();
 			if(!shouldRaise()) {
 				this.noLower();
 				break;

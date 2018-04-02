@@ -37,8 +37,6 @@ public class DriverStation2ToSwitch implements Procedure {
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 34.5));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
-			//procedure.add(new WaitAction(provider.getTimer(), 0.5));
-			
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 53));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
