@@ -39,8 +39,8 @@ public class DriverStation2ToSwitch implements Procedure {
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
 			//procedure.add(new WaitAction(provider.getTimer(), 0.5));
 			
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 62));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 62));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
 		} else if (data.get(0) == Side.LEFT){
@@ -50,8 +50,8 @@ public class DriverStation2ToSwitch implements Procedure {
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 85));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			
-			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 62));
 			procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
+			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 62));
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
 		} else {
