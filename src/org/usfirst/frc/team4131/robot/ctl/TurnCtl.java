@@ -1,9 +1,12 @@
 package org.usfirst.frc.team4131.robot.ctl;
 
+import org.usfirst.frc.team4131.robot.Robot;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * A turn controller used to ensure accurate rotation using
@@ -18,22 +21,23 @@ public class TurnCtl implements PIDOutput {
 
     // Internal navX and PID control device
     private final AHRS dev;
-    private final PIDController controller;
-
+    public static PIDController controller;
+   
     // Exposed methods used for supplying turn actions
     private boolean isTurning;
     private double throttleDelta;
 
     private TurnCtl() {
         this.dev = new AHRS(SPI.Port.kMXP);
-
-        PIDController controller = new PIDController(.018, 0, 0, 0, this.dev, this);
+        
+        PIDController controller = new PIDController(.04, 0, 0, 0, this.dev, this);
+        this.isTurning = false;
         controller.setInputRange(-180, 180);
-        controller.setOutputRange(-.8, .8);
-        controller.setAbsoluteTolerance(7);
+        controller.setOutputRange(-.75, .75);
+        controller.setAbsoluteTolerance(3);
         controller.setContinuous(true);
         controller.disable();
-        this.controller = controller;
+        TurnCtl.controller = controller;
     }
 
     /**
@@ -45,7 +49,7 @@ public class TurnCtl implements PIDOutput {
     public static TurnCtl getInstance() {
         return INSTANCE;
     }
-
+ 
     /**
      * Obtains the yaw read off of the navX.
      *
@@ -53,6 +57,13 @@ public class TurnCtl implements PIDOutput {
      */
     public double getYaw() {
         return this.dev.getYaw();
+    }
+    //pitch & roll
+    public double getPitch() {
+    	return this.dev.getPitch();
+    }
+    public double getRoll() {
+    	return this.dev.getRoll();
     }
 
     public void reset() {
@@ -70,20 +81,20 @@ public class TurnCtl implements PIDOutput {
      * {@code -180 <= delta <= 180}
      */
     public void begin(double delta) {
-        if (!this.isTurning) {
-            delta = this.getYaw() + delta;
-            if (delta > 180) {
-            	delta = 360 - delta;
+    	
+    	if (!this.isTurning) {
+            //delta = delta - Robot.yawzero;
+            //delta = (Math.abs(delta) % 360) * Math.signum(delta);
+            while (delta > 180 || delta < -180) {
+            	if (delta > 180) delta -= 360;
+            	if (delta < -180) delta += 360;
             }
-            
-            if (delta < -180) {
-            	delta = 360 + delta;
-            }
-            
+    		
             this.isTurning = true;
-            this.controller.setSetpoint(delta);
+            //dev.zeroYaw();
+            TurnCtl.controller.setSetpoint(delta);
             this.throttleDelta = 0;
-            this.controller.enable();
+            TurnCtl.controller.enable();
         }
     }
 
@@ -110,7 +121,7 @@ public class TurnCtl implements PIDOutput {
      * still outside
      */
     public boolean targetReached() {
-        return this.controller.onTarget();
+        return TurnCtl.controller.onTarget();
     }
 
     /**
@@ -121,7 +132,7 @@ public class TurnCtl implements PIDOutput {
     public void finish() {
         if (this.isTurning) {
             this.isTurning = false;
-            this.controller.disable();
+            TurnCtl.controller.disable();
         }
     }
 

@@ -12,7 +12,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
  */
 //TODO test when elevator is built
 public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
-
+    public static boolean isElevatorTop;
+    public static boolean isElevatorBottom;
     public ElevatorCommand(ElevatorSubsystem subsystem) {
         super(subsystem);
     }
@@ -24,7 +25,7 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
      * @return {@code true} to signal that the claw should
      * be raised
      */
-    private static boolean shouldRaise() {
+    private static boolean elevatorUpButton() {
         return Oi.ELEVATORUP.get();
     }
 
@@ -35,36 +36,53 @@ public class ElevatorCommand extends SingleSubsystemCmd<ElevatorSubsystem> {
      * @return {@code true} to signal that the claw should
      * be lowered
      */
-    private static boolean shouldLower() {
+    private static boolean elevatorDownButton() {
         return Oi.ELEVATORDOWN.get();
     }
 
     @Override
     protected void execute() {
-        if (shouldRaise() && shouldLower()) {
+    	isElevatorTop = !Robot.topElevatorSwitch.get();
+    	isElevatorBottom = !Robot.bottomElevatorSwitch.get();
+    	if (elevatorUpButton() && elevatorDownButton()) {
             this.subsystem.stop();
-        } else if (shouldRaise()) {
-            if (Robot.isElevatorTop) {
+        } else if (elevatorUpButton()) {
+            if (isElevatorTop) {
             	
                 this.subsystem.stop();
             } else {
                 this.subsystem.raise();
                 
             }
-        } else if (shouldLower()) {
-            if (Robot.isElevatorBottom) {
-                this.subsystem.stop();
+        } else if (elevatorDownButton()) {
+            if (isElevatorBottom) {
+                this.subsystem.noLower();
                 
             } else {
                 this.subsystem.lower();
                 
             }
-        } else if (!shouldLower() && !shouldRaise() ) {
+        } else if(elevatorTopButton()) {
+        	this.subsystem.goToTop();
+        } else if(elevatorBottomButton()) {
+        	this.subsystem.goToBottom();
+        } else if(elevatorTopButton() && elevatorBottomButton()) {
+        	this.subsystem.noLower();
+        
+        } else if (!elevatorDownButton() && !elevatorUpButton() ) {
         	this.subsystem.noLower();
         }
     }
 
-    @Override
+    private boolean elevatorBottomButton() {
+		return Oi.ELEVATORBOTTOM.get();
+	}
+
+	private boolean elevatorTopButton() {
+		return Oi.ELEVATORTOP.get();
+	}
+
+	@Override
     protected void interrupted() {
         this.subsystem.stop();
     }

@@ -11,7 +11,9 @@ import org.usfirst.frc.team4131.robot.subsystem.ClimberSubsystem;
  * robot using the pull-up bar.
  */
 public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
-	private boolean isTop = true, isBottom = true;
+    public static boolean isClimberTop;
+    public static boolean isClimberBottom;
+	//private boolean isTop = true, isBottom = true;
 	public ClimbCommand(ClimberSubsystem subsystem) {
 		
 		
@@ -25,10 +27,16 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * @return {@code true} to signal that climbing should
      * commence
      */
-    private static boolean shouldLower() {
+    private static boolean climberDownButton() {
         return Oi.CLIMBERDOWN.get();
     }
-
+    private static boolean climberBottomButton() {
+        return Oi.CLIMBERBOTTOM.get();
+    }
+    
+    private static boolean climberTopButton() {
+        return Oi.CLIMBERTOP.get();
+    }
     /**
      * Checks the lower button in order to determine whether
      * the robot should lower itself.
@@ -36,30 +44,36 @@ public class ClimbCommand extends SingleSubsystemCmd<ClimberSubsystem> {
      * @return {@code true} to signal that the robot should
      * lower itself
      */
-    private static boolean shouldRaise() {
+    private static boolean climberUpButton() {
         return Oi.CLIMBERUP.get();
     }
 
     @Override
     protected void execute() {
-        if (shouldLower() && shouldRaise()) {
+    	isClimberTop = !Robot.topClimberSwitch.get();
+        isClimberBottom = !Robot.bottomClimberSwitch.get();
+    	if (climberDownButton() && climberUpButton()) {
             this.subsystem.stop();
-        } else if (shouldLower()) {
-            if (Robot.isClimberTop) {
-            	isTop = false;
+        } else if (climberDownButton()) {
+            if (isClimberBottom) {
+            	//isTop = false;
             	this.subsystem.stop();
-            } else {
-                this.subsystem.raise();
-            }
-        } else if (shouldRaise()) {
-        	if (Robot.isClimberBottom) {
-        		isBottom = false;
-                this.subsystem.stop();
             } else {
                 this.subsystem.lower();
             }
+        } else if (climberUpButton()) {
+        	if (isClimberTop) {
+        		//isBottom = false;
+                this.subsystem.stop();
+            } else {
+                this.subsystem.raise();
+            }
+        } else if(climberTopButton()) {
+        	this.subsystem.goToTop();
+        } else if(climberBottomButton()) {
+        	this.subsystem.goToBottom();
         } else {
-            this.subsystem.stop();
+        this.subsystem.stop();
         }
     }
 

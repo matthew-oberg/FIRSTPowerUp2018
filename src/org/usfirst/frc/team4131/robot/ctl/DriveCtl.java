@@ -23,9 +23,9 @@ public class DriveCtl implements PIDOutput {
      * @param driveBase the subsystem to read off PID input
      */
     public DriveCtl(DriveBaseSubsystem driveBase) {
-        PIDController controller = new PIDController(.0004, 0, 0, driveBase, this);
+        PIDController controller = new PIDController(.00015, 0, 0.0001, driveBase, this);
         controller.setInputRange(Integer.MIN_VALUE, Integer.MAX_VALUE);
-        controller.setOutputRange(-0.7, 0.7);
+        controller.setOutputRange(-0.9, 0.9);
         controller.setAbsoluteTolerance(70);
         controller.setContinuous(false);
         controller.disable();

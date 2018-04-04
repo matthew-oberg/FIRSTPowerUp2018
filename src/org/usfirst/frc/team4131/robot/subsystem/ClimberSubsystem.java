@@ -17,8 +17,8 @@ import org.usfirst.frc.team4131.robot.command.ClimbCommand;
 public class ClimberSubsystem extends Subsystem {
 	private final TalonSRX one;
 	private final TalonSRX two;
-    public static boolean isClimberTop = false;
-    public static boolean isClimberBottom = true;
+    public static boolean isClimberTop = Robot.isClimberTop;
+    public static boolean isClimberBottom = Robot.isClimberBottom;
 
 	/**
 	 * Initializes and caches the climbing mechanism motors.
@@ -60,10 +60,19 @@ public class ClimberSubsystem extends Subsystem {
 	}
 
 	public void goToBottom() {
-		this.lower();
-		if(Robot.isClimberBottom) {
-			this.stop();
-		}
+		while(shouldLower()) {
+
+            isClimberTop = !Robot.topClimberSwitch.get();
+            isClimberBottom = !Robot.bottomClimberSwitch.get();
+    		if(!shouldLower()) {
+    		
+    		this.stop();
+    		break;
+    	}
+    	this.lower();
+    	}
+    	this.stop();
+
 		
 	}
 
@@ -84,6 +93,7 @@ public class ClimberSubsystem extends Subsystem {
 		
 		
 	}
+	
 	private static boolean shouldRaise() {
     	return !isClimberTop;
     }

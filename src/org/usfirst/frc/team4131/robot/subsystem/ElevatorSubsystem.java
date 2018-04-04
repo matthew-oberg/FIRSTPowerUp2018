@@ -18,8 +18,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class ElevatorSubsystem extends Subsystem {
 	private final TalonSRX motor;
 
-	public static boolean isElevatorTop;
-	public static boolean isElevatorBottom = true;
+	public static boolean isElevatorTop = Robot.isElevatorTop;
+	public static boolean isElevatorBottom = Robot.isElevatorBottom;
 	/**
 	 * Initializes and caches the climbing mechanism motor.
 	 */
@@ -60,11 +60,14 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void goToBottom() {
-		this.lower();
 		while(shouldLower()) {
-			if(Robot.isElevatorBottom) {
+
+			isElevatorBottom = !Robot.bottomElevatorSwitch.get();
+			if(!shouldLower()) {
 				this.stop();
-			} 
+				break;
+			}
+			this.lower();
 		}
 	}
 
@@ -88,7 +91,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	private static boolean shouldLower() {
-		return false;
+		return !isElevatorBottom;
 	}
 }
 
