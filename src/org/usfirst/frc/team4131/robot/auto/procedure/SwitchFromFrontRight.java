@@ -23,11 +23,12 @@ public class SwitchFromFrontRight implements Procedure {
     @Override
     public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
     		procedure.add(new StartPnuematicAction(provider.getClaw()));
-            procedure.add(new DistanceMoveAction(provider.getDriveBase(), (98)));//104
+            procedure.add(new DistanceMoveAction(provider.getDriveBase(), (97)));//104
             if(data.get(0) == Side.RIGHT) {
             	 procedure.add(new WaitAction(provider.getTimer(), 0.5));
                  procedure.add(new RaiseElevatorAndClimberAction(provider.getClimber(), provider.getElevator(), false, true));
                  procedure.add(new EndPnuematicAction(provider.getClaw()));
+                 procedure.add(new WaitAction(provider.getTimer(), 1));
             }
            
     }

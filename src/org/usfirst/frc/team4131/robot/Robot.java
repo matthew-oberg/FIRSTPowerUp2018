@@ -6,11 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team4131.robot;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4131.robot.auto.Action;
@@ -34,6 +39,7 @@ public class Robot extends IterativeRobot {
     private static final Compressor compressor = new Compressor(61);
 
     // Booleans for random functions
+    public static boolean auton = true;
     public static boolean isInverted;
     public static boolean isClimberTop;
     public static boolean isClimberBottom;
@@ -41,16 +47,20 @@ public class Robot extends IterativeRobot {
     public static boolean isElevatorBottom;
     public static boolean isThrottleMode;
     private static int round;
-
+    public static double yawzero;
  
     // Auton chooser
     private final SendableChooser<Procedure> chooser = new SendableChooser<>();
-
+    
+    public static AHRS dev = new AHRS(SPI.Port.kMXP);
     // Limit Switches
     public final static DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
     public final static DigitalInput topElevatorSwitch = new DigitalInput(1);//true
     public final static DigitalInput topClimberSwitch = new DigitalInput(2);//true
     public final static DigitalInput bottomClimberSwitch = new DigitalInput(3);//false
+    
+    //bear metal delay
+    public static boolean isBearMetal = false;
 
     // Subsystem stuff
     private SubsystemProvider provider;
@@ -65,18 +75,23 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
     	TurnCtl.getInstance().reset();
-    	
+    	//yawzero = TurnCtl.getInstance().getYaw();
         // Init subsystems
         this.provider = new SubsystemProvider(new DriveBaseSubsystem(),
                 new ClawSubsystem(), new ClimberSubsystem(), new ElevatorSubsystem(), new TimerSubsystem());
 
-        
+        //test mode stuff
+        //final AHRS dev;
+        //dev = new AHRS(SPI.Port.kMXP);
+        //LiveWindow.addSensor("DriveBase Subsystem", "Navx", dev);
+        //LiveWindow.addActuator("DriveSystem", "RotateController", TurnCtl.controller); 
+        //SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
         // Init camera
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
 
         // Compressor setup
-        compressor.setClosedLoopControl(true);
+        compressor.setClosedLoopControl(false);
         compressor.clearAllPCMStickyFaults();
 
         // Display auto procedures on dashboard
@@ -95,8 +110,8 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
-
-    	provider.getDriveBase().reset();
+    	yawzero = TurnCtl.getInstance().getYaw();
+    	//provider.getDriveBase().reset();
     	
         String str = "";
         
@@ -122,13 +137,20 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
     	Scheduler.getInstance().run();
-    	
+    	auton = true;
         // Prints SD info
         SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
         SmartDashboard.putBoolean("Elevator Top", isElevatorTop);
         SmartDashboard.putBoolean("Elevator Bottom", isElevatorBottom);
         SmartDashboard.putBoolean("Climber Top", isClimberTop);
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
+        SmartDashboard.putNumber("yaw", dev.getYaw());
+        SmartDashboard.putNumber("pitch", dev.getPitch());
+        SmartDashboard.putNumber("roll", dev.getRoll());
+        SmartDashboard.putNumber("setpoint", TurnCtl.controller.getSetpoint());
+        SmartDashboard.putNumber("yawzero", yawzero);
+        //9 second delay for bear metal
+        //SmartDashboard.putBoolean("BEAR METAL'S DELAY!!!", isBearMetal);
     	
         // Limit switches
     	isClimberTop = !this.topClimberSwitch.get();
@@ -154,7 +176,10 @@ public class Robot extends IterativeRobot {
         isClimberBottom = !this.bottomClimberSwitch.get();
         isElevatorTop = !this.topElevatorSwitch.get();
         isElevatorBottom = !this.bottomElevatorSwitch.get();
-      
+        auton = false;
+        //TODO PUT IN GET YAW, ROLL, & PITCH!!!!!!!!!! <===============
+        //final AHRS dev;
+        //dev = new AHRS(SPI.Port.kMXP);
         // Smart Dashboard Info
         SmartDashboard.putBoolean("Controls Inverted", isInverted);
         SmartDashboard.putBoolean("Throttle Mode", isThrottleMode);
@@ -163,5 +188,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Climber Top", isClimberTop);
         SmartDashboard.putBoolean("Climber Bottom", isClimberBottom);
         SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
+        SmartDashboard.putNumber("yaw", dev.getYaw());
+        SmartDashboard.putNumber("pitch", dev.getPitch());
+        SmartDashboard.putNumber("roll", dev.getRoll());
+        
+        
     }
 }

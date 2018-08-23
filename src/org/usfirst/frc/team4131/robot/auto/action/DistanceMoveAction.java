@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4131.robot.auto.action;
 
 import org.usfirst.frc.team4131.robot.Oi;
+import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.ctl.DriveCtl;
 import org.usfirst.frc.team4131.robot.ctl.TurnCtl;
@@ -45,7 +46,7 @@ public class DistanceMoveAction implements Action {
         
         turnCtl.begin(0);
         ctl.begin(this.distance);
-        while (true) {
+        while (true && Robot.auton) {
             double baseDelta = -ctl.getDelta();
             double turnDelta = turnCtl.getDelta();
 

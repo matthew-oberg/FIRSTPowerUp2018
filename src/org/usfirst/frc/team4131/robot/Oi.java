@@ -34,15 +34,19 @@ public final class Oi {
         
     // Aux stick buttons
     public static final JoystickButton CLAW = new JoystickButton(AUX_JOYSTICK, 1);
-    public static final JoystickButton ARM = new JoystickButton(AUX_JOYSTICK, 2);
+    public static final JoystickButton ARM2 = new JoystickButton(AUX_JOYSTICK, 2);
+    public static final JoystickButton ARM = new JoystickButton(AUX_JOYSTICK, 12);
     public static final JoystickButton PUSHER = new JoystickButton(AUX_JOYSTICK, 11);
 
     public static final JoystickButton ELEVATORUP = new JoystickButton(AUX_JOYSTICK, 5);
     public static final JoystickButton ELEVATORDOWN = new JoystickButton(AUX_JOYSTICK, 3);
+    public static final JoystickButton ELEVATORTOP = new JoystickButton(AUX_JOYSTICK, 7);
+    public static final JoystickButton ELEVATORBOTTOM = new JoystickButton(AUX_JOYSTICK, 9);
     
-    public static final JoystickButton CLIMBERUP = new JoystickButton(AUX_JOYSTICK, 4);
-    public static final JoystickButton CLIMBERDOWN = new JoystickButton(AUX_JOYSTICK, 6);
-    
+    public static final JoystickButton CLIMBERUP = new JoystickButton(AUX_JOYSTICK, 6);
+    public static final JoystickButton CLIMBERDOWN = new JoystickButton(AUX_JOYSTICK, 4);
+    public static final JoystickButton CLIMBERTOP = new JoystickButton(AUX_JOYSTICK, 8);
+    public static final JoystickButton CLIMBERBOTTOM = new JoystickButton(AUX_JOYSTICK, 10);
 
     private Oi() { // Prevent instantiation
     }

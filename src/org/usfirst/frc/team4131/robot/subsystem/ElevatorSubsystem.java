@@ -16,81 +16,82 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
  * Links control of the elevator, used to raise the claw.
  */
 public class ElevatorSubsystem extends Subsystem {
-    private final TalonSRX motor;
+	private final TalonSRX motor;
 
-    public static boolean isElevatorTop = false;
-    public static boolean isElevatorBottom = true;
-    /**
-     * Initializes and caches the climbing mechanism motor.
-     */
-    public ElevatorSubsystem() {
-        this.motor = new TalonSRX(RobotMap.E);
-    }
+	public static boolean isElevatorTop = Robot.isElevatorTop;
+	public static boolean isElevatorBottom = Robot.isElevatorBottom;
+	/**
+	 * Initializes and caches the climbing mechanism motor.
+	 */
+	public ElevatorSubsystem() {
+		this.motor = new TalonSRX(RobotMap.E);
+	}
 
-    @Override
-    protected void initDefaultCommand() {
-        this.setDefaultCommand(new ElevatorCommand(this));
-    }
+	@Override
+	protected void initDefaultCommand() {
+		this.setDefaultCommand(new ElevatorCommand(this));
+	}
 
-    /**
-     * Raises the claw.
-     */
-    public void raise() {
-        this.motor.set(ControlMode.PercentOutput, -0.85);
-        
-    }
+	/**
+	 * Raises the claw.
+	 */
+	public void raise() {
+		this.motor.set(ControlMode.PercentOutput, -0.85);
 
-    /**
-     * Lowers the claw.
-     */
-    public void lower() {
-        this.motor.set(ControlMode.PercentOutput, 0.45);
-    }
-    
-    public void noLower() {
-    	this.motor.set(ControlMode.PercentOutput, -0.2);
-    }
+	}
 
-    /**
-     * Halts claw movement, but the claw may or may not move
-     * depending on its position.
-     */
-    public void stop() {
-        this.motor.set(ControlMode.PercentOutput, 0);
-    }
-    
-    public void goToBottom() {
-    	this.lower();
-    	while(shouldLower()) {
-    	if(Robot.isElevatorBottom) {
-    		this.stop();
-    	} 
-    	}
-    }
-    
-    public void goToTop() {
- 
-    	while(shouldRaise()) {
+	/**
+	 * Lowers the claw.
+	 */
+	public void lower() {
+		this.motor.set(ControlMode.PercentOutput, 0.45);
+	}
 
-            isElevatorTop = !Robot.topElevatorSwitch.get();
-            isElevatorBottom = !Robot.bottomElevatorSwitch.get();
-    		if(!shouldRaise()) {
-    		
-    		this.noLower();
-    		break;
-    	}
-    	this.raise();
-    	}
+	public void noLower() {
+		this.motor.set(ControlMode.PercentOutput, -0.15);
+	}
 
-    }
+	/**
+	 * Halts claw movement, but the claw may or may not move
+	 * depending on its position.
+	 */
+	public void stop() {
+		this.motor.set(ControlMode.PercentOutput, 0);
+	}
 
-    
-    private static boolean shouldRaise() {
-    	return !isElevatorTop;
-    }
-    
-    private static boolean shouldLower() {
-    	return false;
-    }
-    }
-    
+	public void goToBottom() {
+		while(shouldLower()) {
+
+			isElevatorBottom = !Robot.bottomElevatorSwitch.get();
+			if(!shouldLower()) {
+				this.stop();
+				break;
+			}
+			this.lower();
+		}
+	}
+
+	public void goToTop() {
+
+		while(shouldRaise()) {
+
+			isElevatorTop = !Robot.topElevatorSwitch.get();
+			if(!shouldRaise()) {
+				this.noLower();
+				break;
+			}
+			this.raise();
+		}
+
+	}
+
+
+	private static boolean shouldRaise() {
+		return !isElevatorTop;
+	}
+
+	private static boolean shouldLower() {
+		return !isElevatorBottom;
+	}
+}
+
