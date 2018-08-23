@@ -23,21 +23,14 @@ public class Testing implements Procedure {
 	public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
 		System.err.println("Starting testing!");
 		//procedure.add(new StartPnuematicAction(provider.getClaw()));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 180));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), -180));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 180));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), -180));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), 180));
-		//procedure.add(new DistanceMoveAction(provider.getDriveBase(), -180));
 		//procedure.add(new TurnAction(provider.getDriveBase(), -90));
 		//procedure.add(new WaitAction(provider.getTimer(), 3));
 		//procedure.add(new TurnAction(provider.getDriveBase(), 90));
 		procedure.add(new TurnAction(provider.getDriveBase(), 45));
+		procedure.add(new WaitAction(provider.getTimer(), 3));
 		procedure.add(new TurnAction(provider.getDriveBase(), -90));
+		procedure.add(new WaitAction(provider.getTimer(), 3));
 		procedure.add(new TurnAction(provider.getDriveBase(), 45));
-		//procedure.add(new TurnAction(provider.getDriveBase(), 90));
-		//procedure.add(new TurnAction(provider.getDriveBase(), 90));
-		//procedure.add(new TurnAction(provider.getDriveBase(), 90));
 		
 		//procedure.add(new WaitAction(provider.getTimer(), 1));
 		//procedure.add(new TurnAction(provider.getDriveBase(), 90));

@@ -39,7 +39,7 @@ public class Robot extends IterativeRobot {
     private static final Compressor compressor = new Compressor(61);
 
     // Booleans for random functions
-    public static boolean auton = true;
+    public static boolean auton;
     public static boolean isInverted;
     public static boolean isClimberTop;
     public static boolean isClimberBottom;
@@ -91,7 +91,7 @@ public class Robot extends IterativeRobot {
         //camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
 
         // Compressor setup
-        compressor.setClosedLoopControl(false);
+        compressor.setClosedLoopControl(true);
         compressor.clearAllPCMStickyFaults();
 
         // Display auto procedures on dashboard
@@ -106,13 +106,20 @@ public class Robot extends IterativeRobot {
         
         provider.getClaw().armUp();
         provider.getClaw().clamp();
+        /*
+        new Thread(() -> {
+        	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
+            
+        }).start();
+        */
     }
 
     @Override
     public void autonomousInit() {
     	yawzero = TurnCtl.getInstance().getYaw();
     	//provider.getDriveBase().reset();
-    	
+    	auton = true;
         String str = "";
         
         while (str.length() != 3) {
