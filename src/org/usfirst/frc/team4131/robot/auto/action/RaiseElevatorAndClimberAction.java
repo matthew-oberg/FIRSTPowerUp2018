@@ -4,6 +4,7 @@ import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.subsystem.ClimberSubsystem;
 import org.usfirst.frc.team4131.robot.subsystem.ElevatorSubsystem;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 
 public class RaiseElevatorAndClimberAction implements Action{
@@ -24,6 +25,9 @@ public class RaiseElevatorAndClimberAction implements Action{
 
 	@Override
 	public void doAction() {
+		if (RobotState.isOperatorControl()) {
+			return;
+	} else {
 		System.err.println("Raising!");
 		if (this.elevator2 && this.climber2) {
 			this.climber.goToTop();
@@ -36,5 +40,6 @@ public class RaiseElevatorAndClimberAction implements Action{
 		else {
 			System.err.println("bad action booleans!");
 		}
+	}
 	}
 }

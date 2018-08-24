@@ -3,6 +3,7 @@ package org.usfirst.frc.team4131.robot.auto.action;
 import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.subsystem.TimerSubsystem;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 
 public class WaitAction implements Action{
@@ -18,8 +19,11 @@ public class WaitAction implements Action{
 	@Override
 	public void doAction() {
 		// TODO Auto-generated method stub
+		if (RobotState.isOperatorControl()) {
+			return;
+	} else {
 		System.err.println("Delaying for " + time + " seconds!");
 		this.timer.delay(time);
 	}
-
+	}
 }

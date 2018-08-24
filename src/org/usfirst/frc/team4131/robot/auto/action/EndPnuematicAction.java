@@ -3,6 +3,7 @@ package org.usfirst.frc.team4131.robot.auto.action;
 import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.subsystem.ClawSubsystem;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.Timer;
 
 /*
@@ -20,6 +21,9 @@ public class EndPnuematicAction implements Action{
 	
 	@Override
 	public void doAction() {
+		if (RobotState.isOperatorControl()) {
+			return;
+	} else {
 		for(int i=0;i <= 250; i++) {
 		claw.armDown();
 		}
@@ -29,6 +33,6 @@ public class EndPnuematicAction implements Action{
 		claw.pusherOut();
 		Timer.delay(1);
 		claw.armUp();
-		
+	}
 	}
 }

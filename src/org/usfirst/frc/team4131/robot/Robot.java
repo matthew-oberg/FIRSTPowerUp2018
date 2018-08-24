@@ -37,9 +37,8 @@ public class Robot extends IterativeRobot {
     
 	// Compressor stuff
     private static final Compressor compressor = new Compressor(61);
-
     // Booleans for random functions
-    public static boolean auton;
+    public static boolean auton = true;
     public static boolean isInverted;
     public static boolean isClimberTop;
     public static boolean isClimberBottom;
@@ -52,6 +51,7 @@ public class Robot extends IterativeRobot {
     // Auton chooser
     private final SendableChooser<Procedure> chooser = new SendableChooser<>();
     
+
     public static AHRS dev = new AHRS(SPI.Port.kMXP);
     // Limit Switches
     public final static DigitalInput bottomElevatorSwitch = new DigitalInput(0);//true
@@ -87,11 +87,11 @@ public class Robot extends IterativeRobot {
         //LiveWindow.addActuator("DriveSystem", "RotateController", TurnCtl.controller); 
         //SmartDashboard.putNumber("Encoder Ticks", provider.getDriveBase().getDist());
         // Init camera
-        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        //camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
 
         // Compressor setup
-        compressor.setClosedLoopControl(true);
+        compressor.setClosedLoopControl(false);
         compressor.clearAllPCMStickyFaults();
 
         // Display auto procedures on dashboard
@@ -106,20 +106,14 @@ public class Robot extends IterativeRobot {
         
         provider.getClaw().armUp();
         provider.getClaw().clamp();
-        /*
-        new Thread(() -> {
-        	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-            camera.setVideoMode(new VideoMode(VideoMode.PixelFormat.kMJPEG, 600, 600, 10));
-            
-        }).start();
-        */
     }
 
     @Override
     public void autonomousInit() {
+
     	yawzero = TurnCtl.getInstance().getYaw();
     	//provider.getDriveBase().reset();
-    	auton = true;
+    	
         String str = "";
         
         while (str.length() != 3) {
@@ -132,13 +126,7 @@ public class Robot extends IterativeRobot {
 
         // We can now test with or without smart dashboard easily
         Procedure procedure = this.chooser.getSelected();
-        List<Action> actions = new ArrayList<>(procedure.estimateLen());
-        procedure.populate(this.provider, Arrays.asList(sides), actions);
         
-        for (int i = 0, s = actions.size(); i < s; i++) {
-            Action action = actions.get(i);
-            action.doAction();
-        }
     }
 
     @Override
@@ -171,7 +159,6 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-
         // Inverting controls
         isInverted = Oi.INVERT_L_1.get() && Oi.INVERT_L_2.get() && Oi.INVERT_R_1.get() && Oi.INVERT_R_2.get();
         

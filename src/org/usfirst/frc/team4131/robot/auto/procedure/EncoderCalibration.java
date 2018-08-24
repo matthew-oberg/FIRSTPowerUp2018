@@ -9,9 +9,8 @@ import org.usfirst.frc.team4131.robot.subsystem.SubsystemProvider;
 
 import java.util.List;
 
-/**
- * Procedure used to calibrate the encoder units.
- */
+
+  //Procedure used to calibrate the encoder units.
 public class EncoderCalibration implements Procedure {
     @Override
     public int estimateLen() {

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4131.robot.auto.action;
 
 import org.usfirst.frc.team4131.robot.Oi;
-import org.usfirst.frc.team4131.robot.Robot;
 import org.usfirst.frc.team4131.robot.auto.Action;
 import org.usfirst.frc.team4131.robot.ctl.TurnCtl;
 import org.usfirst.frc.team4131.robot.subsystem.DriveBaseSubsystem;
@@ -14,7 +13,6 @@ public class TurnAction implements Action {
     /** The drive base */
     private final DriveBaseSubsystem driveBase;
     /** The value to turn */
-    private double delta;
 
     /**
      * Creates a new turning action that moves a specified
@@ -25,27 +23,12 @@ public class TurnAction implements Action {
      */
     public TurnAction(DriveBaseSubsystem driveBase, float delta) {
         this.driveBase = driveBase;
-        this.delta = delta;
     }
 
     @Override
     public void doAction() {
-    	double yawzero = Robot.yawzero;
     	this.driveBase.doThrottle(0, 0);
-        this.delta = this.delta + yawzero;
         TurnCtl controller = TurnCtl.getInstance();
-        controller.begin(this.delta);
-        while (true && Robot.auton) {
-            if (controller.targetReached()) {
-                break;
-            }
-
-            double value = controller.getDelta();
-            value = Math.abs(value) < 0.5 ? Math.signum(value) * .5 : value;
-
-            this.driveBase.doThrottle(Oi.sigl() * value, Oi.sigr() * value);
-        }
-        this.driveBase.doThrottle(0, 0);
-        controller.finish();
+        
     }
 }

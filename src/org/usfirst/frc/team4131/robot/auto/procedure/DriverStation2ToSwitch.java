@@ -29,11 +29,12 @@ public class DriverStation2ToSwitch implements Procedure {
 
 	@Override
 	public void populate(SubsystemProvider provider, List<Side> data, List<Action> procedure) {
-		
+		procedure.add(new WaitAction(provider.getTimer(), 1));
+
 		//start at 180
 		if (data.get(0) == Side.RIGHT) {
-			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
+			//procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 44));
 			procedure.add(new TurnAction(provider.getDriveBase(), 90));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 40));
@@ -45,7 +46,6 @@ public class DriverStation2ToSwitch implements Procedure {
 			procedure.add(new EndPnuematicAction(provider.getClaw()));
 			procedure.add(new WaitAction(provider.getTimer(), 1));
 		} else if (data.get(0) == Side.LEFT){
-			procedure.add(new WaitAction(provider.getTimer(), 1));
 			procedure.add(new StartPnuematicAction(provider.getClaw()));
 			procedure.add(new DistanceMoveAction(provider.getDriveBase(), 44));
 			procedure.add(new TurnAction(provider.getDriveBase(), -90));
