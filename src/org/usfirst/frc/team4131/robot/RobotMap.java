@@ -1,0 +1,52 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package org.usfirst.frc.team4131.robot;
+
+/**
+ * Constant mapping for the ports and channels used on the
+ * robot to identify gears and controllers.
+ */
+public final class RobotMap {
+    
+    // Controllers
+    public static final int PRIMARY_XBOX_PORT = 0;
+    public static final int SECONDARY_XBOX_PORT = 1;
+
+    // CAN devices
+    public static final int PCM = 61;
+
+    // Left motors
+    public static final int L1 = 1;
+    public static final int L2 = 2;
+
+    // Right motors
+    public static final int R1 = 3;
+    public static final int R2 = 4;
+
+    // Climber motors
+    public static final int C1 = 5;
+    public static final int C2 = 6;
+
+    // Claw elevator motor
+    public static final int E = 7;
+    
+    // Intake motors
+    public static final int I1 = 0;
+    public static final int I2 = 1;
+
+    // Pneumatics
+    public static final int PUSHERONE = 2;
+    public static final int PUSHERTWO = 3;
+    public static final int CLAWONE = 5;
+    public static final int CLAWTWO = 4;
+    public static final int ARMONE = 6;
+    public static final int ARMTWO = 7;
+        
+    private RobotMap() { // Prevent instantiation
+    }
+}
