@@ -95,13 +95,13 @@ public class ClawSubsystem extends Subsystem {
 	}
 	
 	public void wheelEject() {
-		this.wheelOne.set(0.45);
-		this.wheelTwo.set(-0.45);
+		this.wheelOne.set(0.6);
+		this.wheelTwo.set(-0.6);
 	}
 	
 	public void wheelIntake() {
-		this.wheelOne.set(-0.45);
-		this.wheelTwo.set(0.45);
+		this.wheelOne.set(-0.6);
+		this.wheelTwo.set(0.6);
 	}
 	
 	public void wheelStop() {

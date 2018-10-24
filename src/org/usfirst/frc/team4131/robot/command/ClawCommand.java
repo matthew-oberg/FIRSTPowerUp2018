@@ -45,7 +45,7 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 	}
 
 	@Override
-	protected void execute() {
+	protected void execute() {		
 		//CLAW STUFF
 		if (buttonClaw()) {
 			this.subsystem.release();
@@ -108,15 +108,17 @@ public class ClawCommand extends SingleSubsystemCmd<ClawSubsystem> {
 		
 		//Wheels
 		if (wheelIntake()) {
-			this.subsystem.wheelIntake();
-		} else {
-			this.subsystem.wheelStop();
-		}
-		if (wheelEject()) {
 			this.subsystem.wheelEject();
-		} else {
+		/*} else {
 			this.subsystem.wheelStop();
-		}
+		*/}
+		if (wheelEject()) {
+			this.subsystem.wheelIntake();
+		/*} else {
+			this.subsystem.wheelStop();
+		*/}
+		if (!wheelEject() && !wheelIntake())
+			this.subsystem.wheelStop();
 	}
 
 	@Override

@@ -127,7 +127,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-    	Scheduler.getInstance().run();
+    	//Scheduler.getInstance().run();
     	    	
     	if (provider.getDriveBase().getDist() < DISTANCE) {
     		provider.getDriveBase().doThrottle(-0.75, -0.77);
@@ -166,7 +166,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
+                
         // Limit switch stuff
         isClimberTop = !this.topClimberSwitch.get();
         isClimberBottom = !this.bottomClimberSwitch.get();

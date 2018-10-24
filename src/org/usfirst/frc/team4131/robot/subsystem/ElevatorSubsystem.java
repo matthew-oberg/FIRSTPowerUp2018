@@ -35,7 +35,7 @@ public class ElevatorSubsystem extends Subsystem {
 	 * Raises the claw.
 	 */
 	public void raise() {
-		this.motor.set(ControlMode.PercentOutput, -0.85);
+		this.motor.set(ControlMode.PercentOutput, -0.95);
 
 	}
 

@@ -52,7 +52,6 @@ public class MoveCommand extends SingleSubsystemCmd<DriveBaseSubsystem> {
     @Override
     protected void execute() {
         this.subsystem.doThrottle(getLeft() + getRight(), -(getRight() - getLeft()));
-        System.out.println(getLeft() + " - " + -getRight());
     }
 
     @Override
